@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编&amp;硬件】磁盘读取中断的具体实现</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-57"><h2>【汇编&amp;硬件】磁盘读取中断的具体实现</h2><h4>时间：2026-02-22 16:22:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-7-1.html">#汇编 - 硬件系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>在8086汇编中，磁盘操作主要通过int 13h（BIOS磁盘服务中断）实现，涉及软盘、硬盘的读写、状态查询等功能。下面我们学习模拟int 13h核心功能的自定义磁盘操作中断程序，支持磁盘复位、扇区读写、状态获取等基础功能，基于3.25英寸软盘实现。</p>
+<h1>代码实现</h1>
+<pre><code class="language-x86asm">; 常量定义（基于1.44MB软盘参数）
+SECTORS_PER_TRACK equ 18 ; 每磁道扇区数
+HEADS_PER_DISK equ 2 ; 磁头数（面数）
+BYTES_PER_SECTOR equ 512 ; 每扇区字节数
+DISK_STATUS_PORT equ 03F6h ; 磁盘状态端口（模拟）
+DISK_DATA_PORT equ 03F5h ; 磁盘数据端口（模拟）
+DISK_CMD_PORT equ 03F7h ; 磁盘命令端口（模拟）
+STATUS_OK equ 00h ; 操作成功状态
+STATUS_ERR equ 01h ; 操作失败状态
+
+code segment
+    assume cs:code, ds:data
+
+; 磁盘操作中断服务程序（入口：AH=功能号）
+; 功能：
+; AH=00h：磁盘复位（初始化磁盘控制器）
+; AH=02h：读扇区（AL=扇区数，CH=柱面号，CL=扇区号，DH=磁头号，DL=驱动器号；ES:BX=缓冲区）
+; AH=03h：写扇区（参数同读扇区）
+; AH=01h：获取上次操作状态（返回AH=状态码）
+disk_int proc far
+    push ax
+    push bx
+    push cx
+    push dx
+    push si
+    push di
+    push es
+    push ds ; 保存所有寄存器
+    push bp
+    mov bp, sp
+
+    ; 根据功能号跳转处理
+    cmp ah, 00h
+    je disk_reset ; 磁盘复位
+    cmp ah, 01h
+    je get_disk_status ; 获取状态
+    cmp ah, 02h
+    je read_sector ; 读扇区
+    cmp ah, 03h
+    je write_sector ; 写扇区
+    jmp int_end ; 不支持的功能
+
+; 功能00h：磁盘复位
+; 操作：初始化磁盘控制器，重置状态
+disk_reset:
+    ; 向命令端口发送复位命令（假设命令00h）
+    mov al, 00h
+    out DISK_CMD_PORT, al
+
+    ; 等待复位完成（轮询状态端口，bit7=1表示就绪）
+wait_reset:
+    in al, DISK_STATUS_PORT
+    test al, 80h
+    jz wait_reset ; 未就绪则继续等待
+
+    mov [last_status], STATUS_OK ; 复位成功
+    jmp int_end
+
+; 功能01h：获取上次操作状态
+; 返回：AH=状态码（0=成功，1=失败）
+get_disk_status:
+    mov ah, [last_status]
+    jmp int_end
+
+; 功能02h：读扇区
+; 入口参数：
+; AL=要读取的扇区数，CH=柱面号，CL=起始扇区号，DH=磁头号（0-1），DL=驱动器号（0=A盘）
+; ES:BX=接收数据的缓冲区
+; 返回：CF=0表示成功，AH=0；CF=1表示失败，AH=错误码
+read_sector:
+    ; 检查参数合法性
+    cmp dh, HEADS_PER_DISK ; 磁头号是否超出范围（0-1）
+    jge read_err
+    cmp cl, SECTORS_PER_TRACK ; 扇区号是否超出范围（1-18）
+    jg read_err
+    cmp al, 0 ; 扇区数不能为0
+    je read_err
+
+    ; 模拟读操作：向命令端口发送读命令（假设命令02h）
+    mov al, 02h
+    out DISK_CMD_PORT, al
+
+    ; 发送参数（柱面、扇区、磁头）
+    mov al, ch
+    out DISK_DATA_PORT, al ; 柱面号
+    mov al, cl
+    out DISK_DATA_PORT, al ; 扇区号
+    mov al, dh
+    out DISK_DATA_PORT, al ; 磁头号
+
+    ; 等待操作完成（轮询状态端口，bit0=0表示无错误）
+wait_read:
+    in al, DISK_STATUS_PORT
+    test al, 01h
+    jnz wait_read ; 操作未完成则等待
+
+    ; 读取数据（每扇区512字节，循环读取AL个扇区）
+    mov si, 0 ; 扇区计数
+read_loop:
+    push cx
+    mov cx, BYTES_PER_SECTOR / 2 ; 每次读2字节（简化）
+read_byte:
+    in ax, DISK_DATA_PORT ; 从数据端口读2字节
+    mov es:[bx], ax
+    add bx, 2
+    loop read_byte
+    pop cx
+
+    inc si
+    cmp si, al ; 是否读完所有扇区
+    jl read_loop
+
+    mov [last_status], STATUS_OK ; 读成功
+    clc ; 清除进位标志（表示成功）
+    jmp int_end
+
+read_err:
+    mov [last_status], STATUS_ERR ; 读失败
+    stc ; 设置进位标志（表示失败）
+    jmp int_end
+
+; 功能03h：写扇区
+; 入口参数：同读扇区（ES:BX=待写数据缓冲区）
+; 返回：CF=0表示成功，AH=0；CF=1表示失败，AH=错误码
+write_sector:
+    ; 检查参数合法性（同读扇区）
+    cmp dh, HEADS_PER_DISK
+    jge write_err
+    cmp cl, SECTORS_PER_TRACK
+    jg write_err
+    cmp al, 0
+    je write_err
+
+    ; 模拟写操作：向命令端口发送写命令（假设命令03h）
+    mov al, 03h
+    out DISK_CMD_PORT, al
+
+    ; 发送参数（柱面、扇区、磁头）
+    mov al, ch
+    out DISK_DATA_PORT, al
+    mov al, cl
+    out DISK_DATA_PORT, al
+    mov al, dh
+    out DISK_DATA_PORT, al
+
+    ; 等待控制器就绪
+wait_write:
+    in al, DISK_STATUS_PORT
+    test al, 80h
+    jz wait_write ; 未就绪则等待
+
+    ; 写入数据（每扇区512字节，循环写入AL个扇区）
+    mov si, 0
+write_loop:
+    push cx
+    mov cx, BYTES_PER_SECTOR / 2
+write_byte:
+    mov ax, es:[bx] ; 从缓冲区取2字节
+    out DISK_DATA_PORT, ax ; 写入数据端口
+    add bx, 2
+    loop write_byte
+    pop cx
+
+    inc si
+    cmp si, al
+    jl write_loop
+
+    mov [last_status], STATUS_OK ; 写成功
+    clc ; 清除进位标志
+    jmp int_end
+
+write_err:
+    mov [last_status], STATUS_ERR ; 写失败
+    stc ; 设置进位标志
+    jmp int_end
+
+; 中断结束：恢复寄存器并返回
+int_end:
+    pop bp
+    pop ds
+    pop es
+    pop di
+    pop si
+    pop dx
+    pop cx
+    pop bx
+    pop ax
+    iret ; 中断返回
+disk_int endp
+
+; 安装自定义磁盘中断向量（替换int 13h）
+install proc
+    cli ; 关中断，防止安装冲突
+    mov ax, 0
+    mov es, ax ; ES指向中断向量表（0段）
+    mov di, 13h*4 ; int 13h向量地址：13h×4=0000:004C
+    mov ax, offset disk_int ; 中断服务程序偏移地址
+    stosw ; 写入偏移量
+    mov ax, cs ; 中断服务程序段地址
+    stosw ; 写入段地址
+    sti ; 开中断
+    ret
+install endp
+
+; 主程序：测试磁盘操作功能
+main:
+    mov ax, data
+    mov ds, ax ; 初始化数据段
+
+    call install ; 安装磁盘中断
+
+    ; 测试1：磁盘复位
+    mov ah, 00h
+    mov dl, 0 ; 驱动器A:
+    int 13h
+
+    ; 测试2：读扇区（读A盘0柱面，1扇区，0磁头，1个扇区到缓冲区）
+    mov ah, 02h
+    mov al, 1 ; 读1个扇区
+    mov ch, 0 ; 柱面0
+    mov cl, 1 ; 扇区1
+    mov dh, 0 ; 磁头0
+    mov dl, 0 ; 驱动器A:
+    mov bx, offset disk_buf ; 缓冲区地址（ES=DS）
+    mov es, ds
+    int 13h
+
+    ; 测试3：获取操作状态并显示（成功显示'0'，失败显示'1'）
+    mov ah, 01h
+    int 13h
+    add ah, 30h ; 转换为ASCII
+    mov dl, ah
+    mov ah, 02h
+    int 21h ; 调用DOS中断显示
+
+    jmp $ ; 暂停程序
+
+code ends
+
+; 数据段：保存磁盘状态和缓冲区
+data segment
+    last_status db STATUS_OK ; 上次操作状态
+    disk_buf db BYTES_PER_SECTOR dup(0) ; 磁盘缓冲区（512字节）
+data ends
+
+    end main</code></pre>
+<h1>代码说明</h1>
+<ol>
+<li>硬件抽象：基于1.44MB软盘的参数（每磁道18扇区、2磁头、每扇区512字节），模拟磁盘控制器的端口（状态、数据、命令端口），简化真实磁盘的硬件交互逻辑。  </li>
+<li>核心功能：a.磁盘复位：初始化控制器，重置状态，确保后续操作可用。b.读/写扇区：通过端口发送操作命令和参数（柱面、扇区、磁头），从数据端口读写数据，支持多扇区操作。c.状态查询：返回上次操作的结果（成功/失败），辅助判断操作是否有效。  </li>
+<li>中断安装：修改中断向量表中int 13h的入口地址，指向自定义服务程序，安装时关中断（ cli ）防止被其他中断干扰。  </li>
+<li>测试逻辑：主程序依次测试磁盘复位、读扇区和状态查询，并通过DOS中断显示操作结果（0表示成功，1表示失败）。</li>
+</ol></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

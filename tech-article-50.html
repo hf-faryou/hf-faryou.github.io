@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编基础教程】端口</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-50"><h2>【汇编基础教程】端口</h2><h4>时间：2026-01-30 21:53:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-8-1.html">#汇编基础教程系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言&amp;端口简介</h1>
+<p>（本文有点长，相比之前的内容也更有意思，请耐心食用~）
+电脑作为一个由各零件拼凑成的整体，以CPU为核心，管理其他的硬件。端口，就是联系CPU与其他硬件的一个中间规范。各硬件把功能封装好，CPU通过端口访问，实现交互。本文以CMOS RAM为例，介绍端口的使用方法。</p>
+<h1>in指令和out指令</h1>
+<p>在8086CPU中，只有in指令和out指令这两条，能够对端口进行操作，其使用格式如下：</p>
+<h2>in指令（从端口读入数据）</h2>
+<pre><code class="language-x86asm">in al,端口号（若为0~255号直接用常数指明，若为256~65535号则先将号码放在dx中，再在此处填写dx）;本指令用于访问8位端口
+in ax,端口号（同上）;本指令用于访问16位端口</code></pre>
+<h2>out指令（输出数据到端口）</h2>
+<pre><code class="language-x86asm">out 端口号（同上）,al;本指令用于访问8位端口
+out 端口号（同上）,ax;本指令用于访问16位端口</code></pre>
+<p>需要注意的是，在使用in指令和out指令时，读入和读出的数据都存放在固定寄存器中（8位端口对应al，16位端口对应ax），如果改动会出错。</p>
+<h1>CMOS RAM简介</h1>
+<p>CMOS RAM是一种芯片，存放了电脑中的时间信息及其他一些系统配置，其中有一块128字节的RAM可以读取。其只有70h和71h两个端口。我们作为初学者可以用它作为端口学习的一个简单实例，今天我们写一个小程序，用端口读入其时间并显示在屏幕上。下面说明其使用：</p>
+<blockquote>
+<p>70h：地址端口，存放要访问的CMOS RAM单元的地址。<br />
+71h：数据端口，存放70h端口中指定地址的数据。</p>
+</blockquote>
+<p>由此可见，我们如果要读取CMOS RAM的x（x为0~255的正整数）号单元，只需要先将x送入端口70h，再从71h读取结果即可。<br />
+在CMOS RAM中，秒、分、时、日、月、年信息依次存放在0、2、4、7、8、9单元中。用BCD码的形式存放，即用8位二进制分割为两个4位，高4位存十位，低4位存个位。例如，00010100b表示14。</p>
+<h1>如何输出内容到屏幕上</h1>
+<p>今天我们即将写出第一个输出结果到屏幕上的程序~下面介绍显示缓冲区：<br />
+在80*25彩色字符模式下，内存中B8000h~BFFFFh为显示缓冲区，分为8页，通常情况下显示第0页，即B8000h~B8F9Fh中的字符，显示时会将显示缓冲区中的内容转为ASCLL码后输出。<br />
+一个字符的信息存在一个字中，其中前一个字节放字符，后一个字节放属性。<br />
+下面为一个属性字节所包含的信息：  </p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">位数（二进制位）</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">含义</td>
+<td style="text-align: center;">闪烁</td>
+<td style="text-align: center;">背景</td>
+<td style="text-align: center;">背景</td>
+<td style="text-align: center;">背景</td>
+<td style="text-align: center;">高亮</td>
+<td style="text-align: center;">前景</td>
+<td style="text-align: center;">前景</td>
+<td style="text-align: center;">前景</td>
+</tr>
+<tr>
+<td style="text-align: center;">对应颜色</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">红</td>
+<td style="text-align: center;">绿</td>
+<td style="text-align: center;">蓝</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">红</td>
+<td style="text-align: center;">红</td>
+<td style="text-align: center;">红</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>例如：</p>
+<blockquote>
+<p>红底绿字：01000010B        红底闪烁黄字：11000110B<br />
+紫底黑字：01010000B        蓝底高亮白字：01001111B</p>
+</blockquote>
+<p>以此类推，可以根据光学三原色互相合成调出8种颜色。</p>
+<h1>移位指令</h1>
+<p>shl和shr为逻辑移位指令，其中shl为左移，shr为右移。功能类似C语言的&lt;&lt;及&gt;&gt;。使用格式：</p>
+<pre><code class="language-x86asm">shl/shr 原数据（存放在的寄存器名）,移位量（0~8）。</code></pre>
+<h1>程序编写</h1>
+<p>终于介绍完全部的知识了，下面整理一下思路：  </p>
+<blockquote>
+<ol>
+<li>从CMOS RAM中读出一个字节  </li>
+<li>将该字节以十进制输出（原数+30h）  </li>
+<li>重复以上步骤，并将其格式化为“年/月/日  时:分:秒”的格式（前面日期用红底白字，后面时间用黑底高亮黄字）</li>
+</ol>
+</blockquote>
+<p>以下为代码：</p>
+<pre><code class="language-x86asm">assume cs:code
+code segment
+start:
+      mov bx,0b800h
+      mov es,bx
+      mov cl,4
+
+      mov al,9
+      out 70h,al
+      in al,71h
+      mov ah,al
+      shr ah,cl
+      and al,00001111b
+      add ah,30h
+      add al,30h
+      mov byte ptr es:[0],ah
+      mov byte ptr es:[1],01000111b
+      mov byte ptr es:[2],al
+      mov byte ptr es:[3],01000111b
+
+      mov al,2Fh
+      mov byte ptr es:[4],al
+      mov byte ptr es:[5],01000111b
+
+      mov al,8
+      out 70h,al
+      in al,71h
+      mov ah,al
+      shr ah,cl
+      and al,00001111b
+      add ah,30h
+      add al,30h
+      mov byte ptr es:[6],ah
+      mov byte ptr es:[7],01000111b
+      mov byte ptr es:[8],al
+      mov byte ptr es:[9],01000111b
+
+      mov al,2Fh
+      mov byte ptr es:[10],al
+      mov byte ptr es:[11],01000111b
+
+      mov al,7
+      out 70h,al
+      in al,71h
+      mov ah,al
+      shr ah,cl
+      and al,00001111b
+      add ah,30h
+      add al,30h
+      mov byte ptr es:[12],ah
+      mov byte ptr es:[13],01000111b
+      mov byte ptr es:[14],al
+      mov byte ptr es:[15],01000111b
+
+      mov al,4
+      out 70h,al
+      in al,71h
+      mov ah,al
+      shr ah,cl
+      and ah,00001111b
+      add ah,30h
+      add al,30h
+      mov byte ptr es:[20],ah
+      mov byte ptr es:[21],00001110b
+      mov byte ptr es:[22],al
+      mov byte ptr es:[23],00001110b
+
+      mov al,3Ah
+      mov byte ptr es:[24],al
+      mov byte ptr es:[25],00001110b
+
+      mov al,2
+      out 70h,al
+      in al,71h
+      mov ah,al
+      shr ah,4
+      and 00001111b
+      add ah,30h
+      add al,30h
+      mov byte ptr es:[26],ah
+      mov byte ptr es:[27],00001110b
+      mov byte ptr es:[28],al
+      mov byte ptr es:[29],00001110b
+
+      mov al,3Ah
+      mov byte ptr es:[30],al
+      mov byte ptr es:[31],00001110b
+
+      mov al,0
+      out 70h,al
+      in al,71h
+      mov ah,al
+      shr ah,cl
+      and ah,00001111b
+      add ah,30h
+      add al,30h
+      mov byte ptr es:[32],ah
+      mov byte ptr es:[33],00001110b
+      mov byte ptr es:[34],al
+      mov byte ptr es:[35],00001110b
+
+      mov ax,4c00h
+      int 21h
+
+code ends
+end start</code></pre>
+<p>（没有用循环，导致出现了挺多冗余代码的，各位可以试试用循环+子程序简化程序~）</p></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

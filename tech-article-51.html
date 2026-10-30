@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编基础教程】中断</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-51"><h2>【汇编基础教程】中断</h2><h4>时间：2026-01-30 21:55:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-8-1.html">#汇编基础教程系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>中断是CPU中用于处理其内外突发情况的一种机制。CPU执行完当前的指令后，检测到CPU内部或外部传送的一种特殊信息（称“中断信息”），立刻处理这些信息，处理方式即立刻跳转到中断的对应处理程序，执行完这段程序后再返回。中断机制常在CPU及操作系统提供磁盘操作、键盘输入、屏幕输出等处理程序时使用，可以视为早期16位操作系统的一种“API”，本质是一种具有特殊触发条件的函数。下面我们将详细学习几种种情况引起的中断，以及编写程序时如何利用中断机制。</p>
+<h1>中断的过程</h1>
+<p>当8086CPU收到中断信息后，处理过程如下：</p>
+<blockquote>
+<p>（1）取得中断类型码<br />
+（2）pushf<br />
+（3）修改TF、IF值为0<br />
+（4）CS、IP入栈<br />
+（5）进入中断程序（通过修改CS、IP的值）<br />
+（6）恢复CS、IP、标志寄存器的值（从而返回程序）</p>
+</blockquote>
+<p>需要注意的是，如果进入中断的前一条指令修改了ss寄存器的值，那么即使触发了中断条件，也不会进入中断程序。因为ss:sp是一个整体，若ss:sp值不对应则会引起中断之后的错误，所以CPU提供了这一特性。</p>
+<h1>中断向量表</h1>
+<p>8086CPU支持256个中断，为此，规定内存0000:0000~0000:03FF的1024个单元存放0~255号中断的入口，从而建立中断类型码（即中断的编号）与中断程序之间的一一映射关系。其中，每两个字存放一个中断处理程序的地址，高位存放中断处理程序的偏移地址，低位存放其段地址。由此，不难理解，当CPU获得中断类型码N后，即通过设置CS:IP的值为(N<em>4):(N</em>4+2)跳转到中断处理程序，中断结束后再返回原来的位置。</p>
+<h1>内中断</h1>
+<p>内中断的中断信息由CPU内部产生。对8086CPU，当发生如下四种情况时，会引起内中断：</p>
+<blockquote>
+<p>（1）除法错误（执行div等除法指令时，除数为0）<br />
+（2）单步执行（使用debug的时候）<br />
+（3）执行into指令<br />
+（4）执行int指令</p>
+</blockquote>
+<p>下面将分别介绍说明~</p>
+<h2>除法错误中断</h2>
+<p>除法错误中断为0号中断，用于处理div等除法指令除数为零的错误。让我们执行下面的程序：</p>
+<pre><code class="language-x86asm">mov ah,0
+mov bh,1
+div bh</code></pre>
+<p>可以看到，屏幕上输出了“Divide overflow!”，但我们并没有写输出字符串的程序。原因是：这里出现了除数为0的错误，从而引发0号中断，0号中断处理程序的功能即输出字符串“Divide overflow”。</p>
+<h2>单步中断</h2>
+<p>单步中断为1号中断，用于提供Debug的单步执行功能。在使用Debug调试时，我们经常需要逐条调试代码（即使用T命令），单步中断就是提供这一功能的中断。其触发条件为TF值为1。这样我们就很容易理解为什么进入中断之前要设置TF值为0了：如果进入中断前TF值为1，那么执行中断处理程序的第一条指令后，CPU检测到TF值为1，触发单步中断，进入其中断处理程序；执行完中断处理程序之后，又检测到TF值为1，又重新执行1号中断的第一条指令；陷入死循环。</p>
+<h2>into指令引发内中断</h2>
+<p>into指令检测上一条计算指令是否发生了溢出，若是，则进入4号中断。我们可以通过修改4号中断对应的程序，实现需要的功能（后面会详细介绍）。into指令的格式：</p>
+<pre><code class="language-x86asm">into</code></pre>
+<h2>int指令引发内中断</h2>
+<p>int指令的功能是引发中断过程，我们前面所说的中断承载的“API”功能即主要通过int指令实现。其使用格式：</p>
+<pre><code class="language-x86asm">int 中断类型码</code></pre>
+<p>操作系统把“API”以中断形式写到内存里，应用程序通过int指令即可方便地调用。同时，int指令也可以用于不同程序间的数据互通，这对于早期的单任务操作系统尤为重要。我们之前写程序最后总有一句：</p>
+<pre><code class="language-x86asm">int 21h</code></pre>
+<p>中断类型码21H对应的中断功能即为：返回操作系统。这为应用程序提供了快速返回操作系统的方式。<br />
+接下来我们学习如何自己利用中断机制~</p>
+<h2>自己编写中断程序</h2>
+<p>我们来实现一个40h中断，包括如下功能：</p>
+<blockquote>
+<p>（0）清理屏幕<br />
+（1）显示日期<br />
+（2）显示时间</p>
+</blockquote>
+<p>按照汇编的惯例，一个中断里常有多个功能，在调用其中一个子功能时，一般用ah寄存器传递功能号。我们之前的程序中：</p>
+<pre><code class="language-x86asm">mov ax,4c00h</code></pre>
+<p>就是传递21h中断的参数。接下来考虑我们这个中断处理程序的实现有哪些步骤。很显然，我们需要如下的步骤：</p>
+<blockquote>
+<p>（1）用到的寄存器入栈保存<br />
+（2）中断处理程序<br />
+（3）寄存器出栈<br />
+（4）返回</p>
+</blockquote>
+<p>中断返回一般用iret指令，其功能相当于：</p>
+<pre><code class="language-x86asm">pop IP
+pop CS
+popf</code></pre>
+<p>中断程序也占用空间。我们这里只是进行练习，所以只要别让代码影响到操作系统即可。所以我们直接扔到闲置的中断向量表区，即0000:0200~0000:03FF区域。<br />
+下面开始编写~</p>
+<pre><code class="language-x86asm">assume cs:codesg
+
+;安装程序
+codesg segment
+setup:
+  mov ax,cs
+  mov ds,ax
+  mov si,offset code
+  mov ax,0
+  mov es,ax
+  mov di,200h
+
+  mov cx,offset codeend-offset code
+  cld
+  rep movsb
+
+  mov ax,0
+  mov ds,ax
+  mov word ptr [4*40h],200h
+  mov word ptr [4*40h+2],0
+
+  mov ax,4c00h
+  int 21h
+
+;中断处理程序
+code:
+  cmp ah,2
+  jae codeback
+  mov bx,ax
+  shl bx
+  jmp word ptr codetable[bx]
+run0:
+  push cx
+  mov cx,4000
+  push ax
+  push ds
+  mov ax,0b800h
+  mov ds,ax
+  rep mov byte ptr [cx],0
+  pop ds
+  pop ax
+  pop cx
+run1:
+  push cx
+  mov cx,3
+  push ax
+  push bx
+  push dx
+  mov ax,cs
+  mov ds,ax
+  mov ax,0b800h
+  mov es,ax
+  mov bx,14
+run1_loop:
+  mov al,codedata1[cx]
+  out al,70h
+  in 71h,al
+  mov ah,al
+  shr ah,4
+  and al,00001111b
+  add al,30h
+  add ah,30h
+  mov byte ptr es:[bx],al
+  sub bx,2
+  mov byte ptr es:[bx],ah
+  sub bx,4
+  loop run1_loop
+  mov byte ptr es:[4],'/'
+  mov byte ptr es:[10],'/'
+  pop dx
+  pop bx
+  pop ax
+  pop cx
+  iret
+run2:
+  push cx
+  mov cx,3
+  push ax
+  push bx
+  push dx
+  mov ax,cs
+  mov ds,ax
+  mov ax,0b800h
+  mov es,ax
+  mov bx,14
+run2_loop:
+  mov al,codedata2[cx]
+  out al,70h
+  in 71h,al
+  mov ah,al
+  shr ah,4
+  and al,00001111b
+  add al,30h
+  add ah,30h
+  mov byte ptr es:[bx],al
+  sub bx,2
+  mov byte ptr es:[bx],ah
+  sub bx,4
+  loop run2_loop
+  mov byte ptr es:[4],':'
+  mov byte ptr es:[10],':'
+  pop dx
+  pop bx
+  pop ax
+  pop cx
+  iret
+codeback:iret
+codetable dw run0,run1,run2
+codedata1 db 9,8,7
+codedata2 db 4,2,0
+codeend:nop
+codesg ends
+end setup</code></pre>
+<p>执行过上述程序之后，40h号中断即安装进了系统，我们执行下面的指令即可调用：</p>
+<pre><code class="language-x86asm">mov ah,1；这里以1号功能为例，会显示日期
+int 40h</code></pre>
+<h1>外中断</h1>
+<p>外中断是用于外部硬件引发的中断，通常用来处理硬件相关的信息。外部设备全部通过端口接入PC机，而外中断就是在某些端口的信息送达CPU时引发的中断。下面我们来了解外中断。<br />
+首先，外接设备多种多样，而主板本身并没有这么多的端口来接入各种外部设备。况且对于外中断，在一般情况下都应该立刻作出反应。因此，我们需要一个中介，连接主板与外部设备，并向CPU发送外接设备的中断类型码。这个设备就是中断控制芯片。我们以8259A中断控制芯片为例（因为它是8086机上最常见的）。8259A上有8个端口，以接入8种不同的设备。当外部中断（如键盘输入）发生时，它通过预先设定好的外部中断-中断类型码映射关系，找到键盘中断对应的信息，并传递给CPU。然后，CPU执行中断处理程序。<br />
+BIOS中的9号中断有基本的键盘处理程序，以进行基本的输入输出处理，包括：  </p>
+<blockquote>
+<p>（1）读入扫描码<br />
+（2）如果该扫描码代表字符键，刚将该扫描码与对应的ASCLL码送入BIOS键盘缓冲区（该缓冲区由16h号中断管理）；如扫描码代表控制键或切换键，则将其转变为状态字节，写入内存的0040:0017单元。<br />
+（3）完成对硬件系统的应答</p>
+</blockquote>
+<p>其中最后一步是普遍适用于所有外中断的。它向8259A发送中断处理完毕的信息，从而继续工作。其实现如下：</p>
+<pre><code class="language-x86asm">mov al,0x20
+out 0x20,al
+out 0xa0,al
+iret</code></pre>
+<p>这段代码向8259A发送EOI信息，以使其继续工作。<br />
+之后的内容我们会进一步学习各种硬件中断的具体实现，这里只作基本了解~</p></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

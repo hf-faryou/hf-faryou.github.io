@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编基础教程】标志寄存器</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-49"><h2>【汇编基础教程】标志寄存器</h2><h4>时间：2026-01-30 21:48:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-8-1.html">#汇编基础教程系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>在8086CPU中，有一个特殊的寄存器，用来存放各种指令产生的临时信息，它被称为flag，即标志寄存器。本文将介绍该寄存器的使用，在编程时应灵活使用其特性。</p>
+<h1>标志寄存器简介</h1>
+<p>标志寄存器可以视为几个单二进制位的寄存器所拼凑出来的一个寄存器（几个各具自己含义的单二进制位的寄存器挤在同一个寄存器里面），存放一些指令执行时产生的附加信息（如加减法时的进位、借位，溢出等）。在标志寄存器中，每个二进制位代表一个信息。下面将详细介绍各标志寄存器的用途~</p>
+<h1>标志寄存器组成</h1>
+<p>标志寄存器由以下各位组成：</p>
+<blockquote>
+<p>位数  15 14 13 12 11 10  9  8  7  6  5  4  3  2  1  0<br />
+表示              OF DF  IF TF SF ZF    AF    PF    CF</p>
+</blockquote>
+<p>其中空的位没有实际意义，有意义的位将进行介绍——</p>
+<h1>标志寄存器使用</h1>
+<h2>DF标志（第10位，方向标志位）与串传送指令</h2>
+<p>DF标志控制串传送指令每次操作后si、di的增减。若DF值为0，则每次操作后si、di递增；若DF值为1，则每次操作后si、di递减。<br />
+串传送指令用于在内存中移动一批数据。其中movsb针对一个字节，movsw针对一个字。movsb的功能如下：</p>
+<blockquote>
+<p>（1）将ds:si指向的内存单元字节送入es:di处。<br />
+（2）若DF值为0，则si、di各自增1；若DF值为1，则si、di各自减1。</p>
+</blockquote>
+<p>同理，movsw的功能如下：</p>
+<blockquote>
+<p>（1）将ds:si指向的内存单元字送入es:di处。<br />
+（2）若DF值为0，则si、di各自增2；若DF值为1，则si、di各自减2。</p>
+</blockquote>
+<p>串传送指令一般和rep配合使用，如：</p>
+<pre><code class="language-x86asm">rep movsb</code></pre>
+<p>其等价于：</p>
+<pre><code class="language-x86asm">s:movsb
+  loop s</code></pre>
+<p>易知rep的作用：可以实现(cx)个字节/字的传送。<br />
+由此，不难想到，CPU应提供直接更改DF值的方式。事实确实如此。在8086CPU中，我们可以通过cld/std指令将DF的值设置为0/1，格式：</p>
+<pre><code class="language-x86asm">cld/std</code></pre>
+<h2>ZF标志（第6位，零标志位）</h2>
+<p>ZF标志用于记录相关指令执行后，其结果是否为0。若结果为0，则ZF值为1；反之则ZF值为0。其中，add、sub、mul、div、inc、or、and等运算指令会影响ZF的值。例如，执行如下指令后，ZF值为1：</p>
+<pre><code class="language-x86asm">mov ax,1
+sub ax,1</code></pre>
+<h2>PF标志（第2位，奇偶标志位）</h2>
+<p>PF标志用于记录一些指令执行后，其结果的所有单字节位中1的个数是否为偶数。若为偶数，则PF值为1；反之则PF值为0。例如，执行如下指令后，PF值为0：</p>
+<pre><code class="language-x86asm">mov al,1
+or al,1</code></pre>
+<h2>SF标志（第7位，符号标志位）</h2>
+<p>SF标志记录一些指令执行后，其结果是否为负。若结果为负，则SF值为1；否则SF值为0。需要注意的是，计算机中存放的数字有无符号数和有符号数两种，而一个字节单元存放的数有无符号由编程者意识决定。当你认为运算对象是有符号数时，8086CPU会将运算结果视为补码，并将其转为原码后判断其符号位的正负来更新SF位的值；当你认为运算对象是无符号数时，CPU也会以相同方式更新SF位，但此时符号对你没有意义，所以请无视SF位。例如，执行如下指令后，SF值为0（运算结果换成原码后为0，即非负数）：</p>
+<pre><code class="language-x86asm">mov al,10000001b
+add al,01111111b</code></pre>
+<h2>CF标志（第0位，进退位标志位）</h2>
+<p>CF标志记录add、sub执行后最高位是否产生进、退位。若产生了进、退位，则CF值为1；反之则CF值为0。需要注意的是，inc和loop指令不影响CF位。
+abc、sbb指令
+abc、sbb指令是带借位加、减法指令。相当于在操作目标上再加、减一个CF的值，例如：</p>
+<pre><code class="language-x86asm">add al,bl
+abc ah,bh</code></pre>
+<p>以上指令等效于：</p>
+<pre><code class="language-x86asm">add ax,bx</code></pre>
+<p>由此可见，我们可以通过abc和sbb指令进行大数据相加。例如，以下代码能计算1EF0001000H+2010001EFH的值，其中高、中、低16位分别存放在ax、bx、cx寄存器中：</p>
+<pre><code class="language-x86asm">mov ax,001EH
+mov bx,0F000H
+mov cx,1000H
+add cx,1EF0H
+abc bx,1000H
+abc ax,0020H</code></pre>
+<h2>OF标志（第11位，溢出标志位）</h2>
+<p>我们在进行有符号数运算时，可能会发生溢出，这会导致运算结果不正确。例如，我们要将两个8位二进制数（范围-128~127）98和99相加，正确结果是197。但是，由于机器无法存下，发生了溢出，我们得到了-59，显然，这与我们的希望不符。<br />
+OF标志位就是用于记录溢出的位。如果发生溢出，OF值为1；反之OF值为0。上面的98+99运算后，OF值为1。但需要注意OF和CF的区别。CF针对无符号数，而OF针对有符号数。</p>
+<h2>cmp指令和检测比较结果的条件跳转指令</h2>
+<p>cmp指令为比较指令，格式：</p>
+<pre><code class="language-x86asm">cmp 操作对象1,操作对象2</code></pre>
+<p>当执行cmp指令时，CPU会对两个操作对象作减法，但不保存在操作对象中，只影响标志寄存器的值。例如，执行如下指令后，ZF值为0，PF值为1，SF值为0，CF值为0，OF值为0：</p>
+<pre><code class="language-x86asm">mov ax,8
+mov bx,3
+cmp ax,bx</code></pre>
+<p>则执行cmp指令后，我们通过标志寄存器的值即可判断两个操作对象的大小。由逻辑推理，我们可以得到：</p>
+<blockquote>
+<p>当ZF值为1时，(ax)=(bx)<br />
+当CF值为1时，(ax)&lt;(bx)<br />
+当CF值为0且ZF值为0时，(ax)&gt;(bx) </p>
+</blockquote>
+<p>对于有符号数，由于其靠补码表示，故情况较为复杂：</p>
+<blockquote>
+<p>当SF值与OF值不同时，(ax)&lt;(bx)<br />
+当SF值与OF值相同时，(ax)≥(bx)，然后根据ZF的值判断是否相等</p>
+</blockquote>
+<p>通过上面的讨论，我们知道了不同比较结果下cmp指令的实际意义，下面介绍常用的使用cmp比较结果的方法——检测比较结果的条件转移指令。对于无符号数，其条件转移指令如下：</p>
+<blockquote>
+<p>je/jz：等于（ZF值为1）则转移<br />
+jne/jnz：不等于（ZF值为0）则转移<br />
+ja/jnbe：高于（CF、ZF值均为0）则转移<br />
+jna/jbe：不高于（CF、ZF中至少一个值为1）则转移<br />
+jb/jnba：低于（CF值为1）则转移<br />
+jnb/jae：不低于（CF值为0）则转移</p>
+</blockquote>
+<p>对于有符号数，其条件转移指令如下：</p>
+<blockquote>
+<p>je/jz：等于（ZF值为1）则转移<br />
+jne/jnz：不等于（ZF值为0）则转移<br />
+jg/jnle：大于（SF、OF值相等且ZF值为1）则转移<br />
+jng/jle：不大于（SF、OF值不等或ZF值为0）则转移<br />
+jl/jnge：小于（SF、OF值不等）则转移<br />
+jnl/jge：不小于（SF、OF值相等）则转移</p>
+</blockquote>
+<p>如果只想要用其中一个标志位，则可以使用下面针对某一个位的指令：</p>
+<blockquote>
+<p>jc/jo/jp/js：CF/OF/PF/SF值为1则转移<br />
+jnc/jno/jnp/jns：CF/OF/PF/SF值为0则转移</p>
+</blockquote>
+<p>以ja为例，以上全部转移指令的格式：</p>
+<pre><code class="language-x86asm">ja 标号</code></pre>
+<p>将ja替换为其他指令也可。注意，以上条件转移指令均为短转移。</p>
+<h2>AF标志（第四位，辅助进退位标志位）</h2>
+<p>AF标志位用于BCD码运算相关操作。BCD码是一种用一组四个二进制位表示十进制数的编码。若两数相加，其中低四位的最高位有进位，则AF值为1，反之AF值为0。</p>
+<h1>直接获得标志寄存器中的数据</h1>
+<p>8086CPU支持直接访问标志寄存器的数据。pushf能够将标志寄存器压栈，popf刚能够从栈中弹出数据到标志寄存器中，格式：</p>
+<pre><code class="language-x86asm">pushf/popf</code></pre>
+<p>同时，还有一个lahf指令，能够将标志寄存器的低8位送入ah寄存器。格式：</p>
+<pre><code class="language-x86asm">lahf</code></pre>
+<p>在得到标志寄存器中的数据后，我们即可通过位运算指令，建立值-指令映射关系，同样可以实现类似条件转移指令的功能（高级语言中if语句的底层逻辑就是映射）。</p></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

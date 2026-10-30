@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编基础教程】更灵活的定位内存</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-46"><h2>【汇编基础教程】更灵活的定位内存</h2><h4>时间：2026-01-30 21:42:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-8-1.html">#汇编基础教程系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>上期我们学习了用[bx]定位内存的方法，今天让我们进一步学习一些定位内存的方法。</p>
+<h1>and和or指令</h1>
+<p>这是两个位运算指令，and表示逻辑与，or表示逻辑或，格式如下：</p>
+<pre><code class="language-x86asm">and/or 寄存器名,参数值</code></pre>
+<p>可以实现对寄存器内的数及参数值进行位运算，结果存在该寄存器中。</p>
+<h1>[bx+idata]</h1>
+<p>（idata泛指常数，由编程者决定）
+可以表示值为(bx)+idata的偏移地址（即bx寄存器的值加上idata这一常数作为偏移地址）。</p>
+<h1>[bx+di/si]</h1>
+<p>di和si寄存器功能与bx相近，但是不能分割为两个八位寄存器。<br />
+[bx+di]、[bx+si]分别表示(bx)+(di)、(bx)+(si)作为偏移地址。</p>
+<h1>[bx+di/si+idata]</h1>
+<p>表示(bx)+(di/si)+idata)作为偏移地址。</p>
+<h1>简单应用一下</h1>
+<p>练个题~
+编程，将datasg段中每个单词改成小写字母</p>
+<pre><code class="language-x86asm">assume cs:codesg,ds:datasg
+
+datasg segment
+  db 'Far             '
+  db 'You             '
+  db 'HJC             '
+  db 'BBS             '
+datasg ends
+
+codesg segment
+start:
+codesg ends
+
+end start</code></pre>
+<p>首先，我们还没有学习判断语句，所以要改变大小写只能用别的方式。观察一下大小写字母的ASCLL码，注意到大小写字母只在第五位有区别，只要将大写字母的第五位改成1，即可实现大写转小写，由此，可以选择使用逻辑或（即前面的or指令）。<br />
+由此，我们可以使用两层循环，在每层中修改字符串前三字节的第五位为1。<br />
+还有一个问题是两层循环的实现，我们只有cx一个寄存器，所以应该用另外一个寄存器在内层循环前暂存cx的值，就用dx吧~<br />
+代码：</p>
+<pre><code class="language-x86asm">assume cs:codesg,ds:datasg
+
+datasg segment
+  db 'Far             '
+  db 'You             '
+  db 'HJC             '
+  db 'BBS             '
+datasg ends
+
+codesg segment
+
+  start:mov ax,datasg
+        mov ds,ax
+        mov bx,0
+        mov cx,4
+
+     s0:mov dx,cx    ;暂存cx
+        mov si,0
+        mov cx,3
+
+      s:mov al,[bx+si]
+        or al,00100000b
+        mov [bx+si],al
+        inc si
+        loop s       ;内层循环
+
+        add bx,16
+        mov cx,dx    ;恢复cx
+        loop s0      ;外层循环
+
+        mov ax,4c00H
+        int 21H
+codesg ends
+end start</code></pre>
+<h1>数据标号和assume指令</h1>
+<p>数据标号是一种特殊的标号。之前我们介绍的“标号:”格式的标号，只能表示一个内存地址。而数据标号则具有表示地址和数据的双重功能。其格式如下：</p>
+<pre><code class="language-x86asm">标号名 db/dw/dd 数据1,数据2,...</code></pre>
+<p>可以看到，该标号在定义数据时使用。下面是其使用格式：
+首先要在使用前用伪指令assume说明使用数据标号的段：</p>
+<pre><code class="language-x86asm">assume ds:data</code></pre>
+<p>这样ds寄存器就与data段产生了关联。在调用data段中的数据时，如果使用数据标号替代，编译器就会将其识别为以ds为段地址、以数据标号的偏移地址为偏移地址的内存地址或该内存地址代表的数据（有点绕，自己断下句，下面看个例子）。下面假设data段里有如下声明：</p>
+<pre><code class="language-x86asm">data segment
+  a dw 0,0
+  b db 1,2,3,4
+data ends</code></pre>
+<p>则a、b即为data:[0]和data:[4]的数据标号。之后在代码中将ds的值设为data的段地址：</p>
+<pre><code class="language-x86asm">mov ax,data
+mov ds,ax</code></pre>
+<p>即可使用该标号。下面是在一些指令中使用数据标号的例子。当其代表内存单元时：</p>
+<pre><code class="language-x86asm">mov ax,a    ;代表mov word ptr ax,ds:[0]
+add b,al    ;代表add ds:[4],al
+inc b[2]    ;代表inc ds:[4+2]
+dec a[1]    ;代表dec ds:[2]</code></pre>
+<p>作为一个地址时，在数据标号前加上offset即可。<br />
+需要注意的悬，数据标号同时代表了一个内存单元的长度。也就是说，当其作为数据进行操作时，要注意位数问题。以下代码会导致编译错误：</p>
+<pre><code class="language-x86asm">mov al,a
+sub ax,b</code></pre>
+<p>原因是al、ax的位数和a、b的位数对不上。<br />
+这里需要知道，assume是伪指令，只用来提示编译器，用assume进行所谓“关联”也并不会将段地址存入指定的段寄存器里。这个需要自己注意~</p></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

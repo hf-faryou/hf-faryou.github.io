@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编】漫谈：学习汇编后的一些思考</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-54"><h2>【汇编】漫谈：学习汇编后的一些思考</h2><h4>时间：2026-02-01 15:53:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>学习汇编之后，我们或许能够思考一些之前无法考虑的问题。本文是个人的一些想法，分享给大家，也许可以激发大家的思维。</p>
+<h1>操作系统的思考</h1>
+<p>学了汇编，我们可以对一些结构较为简单的操作系统进行研究。<br />
+我们来考虑一个DOS操作系统，我们想想一个DOS系统由哪些部分组成，无非是引导、硬件控制（最基本的，磁盘、键盘和屏幕）、提供一些中断程序（即所谓"API"），以及一个基本的命令行。这也是MS-DOS1.25中的全部。<br />
+很显然，我们如果要独立制作一个DOS操作系统，就应该从这些方面入手。我们已经学完了汇编的基础知识。很显然，前面三个部分以我们目前的汇编能力，外加学习一点硬件知识，有希望能完成；最后一个部分涉及到字符串的处理，这需要我们学习一些相关的算法（如果想实现复杂点的语法使用C语言更为方便，但这里仅考虑最简单的情况）。<br />
+因此，我们不妨将这样一个较为基础的DOS作为练习16位汇编的大作业~</p>
+<h1>高级语言的思考</h1>
+<p>我们思考一下C语言里的函数、变量、结构体等概念的实现。<br />
+首先，我们在使用函数的时候经常进行嵌套及递归操作，那么如何保存之前函数中的数据就成为了一个问题。汇编语言中，我们使用call调用子程序之后，子程序会先把寄存器入栈。而在C语言的函数中，我们需要暂存局部变量，并且函数过程结束之后，应当及时释放局部变量占用的内存。很显然，函数调用及嵌套具有“先进后出”的性质，即越先进入的函数越靠后结束，这完美契合了栈的特性。如果我们构建一个“栈”，存下局部变量，那么只需要在函数调用前后进出栈，就可以很好的完成内存管理。而我们还有全局变量，两者应该分开存。通常的做法是：在内存中靠前的地方划出一块作为栈，分界线之后的区域存放全局变量，称为“堆”。其他高级语言的内存管理也与此大致相同。这也解释了为什么局部变量不能定义过大——栈的空间有限，会爆栈。<br />
+结构体的原理很简单，实质上是一堆挤在一起的变量，只需要用多个寄存器访问即可。</p>
+<h1>关于CPU</h1>
+<p>我们前面已经学习了8086CPU的工作原理，选择8086是因为其机制较为简单，同时作为早期CPU的代表，适合新手进行学习，现实生活中应该是见不到这种三十多年前的CPU的。8086CPU为单任务CPU，即只能同时执行一条指令，并且没有任何内存保护机制，也就是说所有程序的内存可以互相看到，非常不安全。因此Intel在之后的CPU版本中加入了保护模式，实现了内存的权限层级管理。保护模式下我们需要学习许多新东西，机制也更复杂。我的观点是：先把8086下的硬件之类的事情折腾清楚搞熟练，再逐步接触保护模式。因此，我后面的教程也会对8086机的其他硬件调用进行详细介绍，以助读者理解。</p></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

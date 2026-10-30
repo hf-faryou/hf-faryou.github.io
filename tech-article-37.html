@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【算法教程】【C/C++】BFS（广度优先搜索）——程序设计思路与代码实现</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-37"><h2>【算法教程】【C/C++】BFS（广度优先搜索）——程序设计思路与代码实现</h2><h4>时间：2025-02-01 07:11:00</h4><div class="article-category">分类：编程技术 → 算法类</div><div class="article-tags">标签：<a href="tech-tag-9-1.html">#C/C++</a> <a href="tech-tag-10-1.html">#算法</a> <a href="tech-tag-17-1.html">#算法基础教程系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>广度优先搜索适合用于解决一些走迷宫之类的问题，可以解决深度优先搜索“搜得太深一时出不来”的问题。今天我们学习一下BFS的基本思路。</p>
+<h1>程序设计思路</h1>
+<p>BFS与DFS不同就在于BFS是按照层次遍历（在树上表现为从上到下一层一层，横向遍历），而DFS则是有多深走多深，不管层数。理论上来说，两者都属于暴力。<br />
+BFS通过队列实现，即每次从队列中取出一个点进行相关操作，并在这次循环内察看其子节点是不是叶子节点，如果是非叶子节点就把这个点入队，之后将这个父节点出队，处理下一个点，直到处理完所有节点（队列空），实现遍历。<br />
+还是下面这棵树：<br />
+<img src="https://pic.faryou.eu.org/i/2026/08/11/wcoh03.png" alt="1866550706" /><br />
+使用BFS的遍历顺序为：2→7→8→1→6→9→5→3→4。</p>
+<h1>代码实现</h1>
+<p>来看一道题：<br />
+<img src="https://pic.faryou.eu.org/i/2026/08/11/x40auk.png" alt="1651561279" /><br />
+这是一道经典的BFS题目，我们可以将马不同的行走路线看成一棵树上不同的分支。直接上代码——</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int n,m,x,y,ans[401][401],ssb[9]={0,-2,-2,-1,-1,2,2,1,1},sbb[9]={0,-1,1,-2,2,-1,1,-2,2},iq,aq;//n、m、x、y如题意，ans存放从起点到各个点的最短路径，iq、aq为临时变量
+bool visit[401][401];//记录当前点有没有访问过
+
+int main(){
+    queue&lt;int&gt; f1,f2;//队列，分别记录f1与f2
+    scanf("%d%d%d%d",&amp;n,&amp;m,&amp;x,&amp;y);
+    for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=m;j++) ans[i][j]=-1;
+    f1.push(x);
+    f2.push(y);//先将起点入队，开始计算
+    ans[x][y]=0;//起点到起点距离为0
+    for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=m;j++) visit[i][j]=false;//初始化
+    visit[x][y]=true;//已经访问过起点
+    while(!f1.empty()){//循环直到队列空
+        iq=f1.front();
+        aq=f2.front();//取出x、y分别计算
+        f1.pop();
+        f2.pop();//出队
+        for(int i=1;i&lt;=8;i++){//马下一步可以到八个方向
+            int nexx=iq+ssb[i];
+            int nexy=aq+sbb[i];//临时变量记录
+            if(nexx&gt;0 &amp;&amp; nexy&gt;0 &amp;&amp; nexx&lt;=n &amp;&amp; nexy&lt;=m &amp;&amp; !visit[nexx][nexy]){//判断是否超界或访问过
+                visit[nexx][nexy]=true;//当前点标记
+                ans[nexx][nexy]=ans[iq][aq]+1;
+                f1.push(nexx);
+                f2.push(nexy);//进队列
+            }
+        }
+    }
+    for(int i=1;i&lt;=n;i++){//输出
+        for(int j=1;j&lt;=m;j++) printf("%-5d",ans[i][j]);
+        printf("\n");
+    }
+    return 0;
+}</code></pre>
+<p>再来看下面这题：<br />
+<img src="https://pic.faryou.eu.org/i/2026/08/11/x47p2n.png" alt="2212827443" />
+这题可以视作遍历二叉树，即上楼和下楼分别为节点。看代码：</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct node{//floor存放一层，d存放到该层的步数
+    int floor,d;
+}now;
+
+int n,a,b,k[201],dist;//n、a、b、k如题意，dist为临时变量
+bool vis[201];//记录是否到达
+queue&lt;node&gt; iq;//队列
+
+int main(){
+    scanf("%d%d%d",&amp;n,&amp;a,&amp;b);
+    for(int i=1;i&lt;=n;i++){
+        scanf("%d",&amp;k[i]);
+        vis[i]=false;
+    }//初始化+读入
+    iq.push((node){a,0});//起点入队
+    vis[a]=true;//起点已访问过
+    while(!iq.empty()){//循环直到队列空
+        now=iq.front();//存放这次循环要处理的点
+        iq.pop();//出队
+        if(now.floor==b) break;//当已经到达终点时，退出循环。由于广搜可以保证搜索的步数逐渐增加，所以不会漏掉步数更少的情况
+        dist=now.floor-k[now.floor];//临时记录（下楼）
+        if(dist&gt;=1 &amp;&amp; dist&lt;=n &amp;&amp; !vis[dist]){//判断未超界且未访问过
+            iq.push((node{dist,now.d+1}));//入队
+            vis[dist]=1;//标记
+        }
+        dist=now.floor+k[now.floor];//临时记录（上楼）
+        if(dist&gt;=1 &amp;&amp; dist&lt;=n &amp;&amp; !vis[dist]){//同上
+            iq.push((node{dist,now.d+1}));
+            vis[dist]=1;
+        }
+    }
+    if(now.floor==b) printf("%d",now.d);
+    else printf("-1");
+    return 0;
+}</code></pre>
+<p>这里注意不要忘记开vis数组，否则可能会死循环（出现环状结构时）。</p>
+<h1>结语</h1>
+<p>BFS是很重要的一个算法，只要想清楚自己的树是怎么样的就可以轻松完成程序。我是faryou，再见！</p></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

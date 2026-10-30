@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编&amp;硬件】关机中断的具体实现</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-62"><h2>【汇编&amp;硬件】关机中断的具体实现</h2><h4>时间：2026-03-30 16:38:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-7-1.html">#汇编 - 硬件系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>在8086汇编环境中，直接实现关机功能通常依赖硬件支持（如ATX电源的控制端口），且不同系统的实现方式存在差异。以下是一个基于ATX电源控制逻辑的关机中断模拟实现，通过操作特定端口发送关机命令，实际使用需结合硬件环境。</p>
+<h1>代码实现</h1>
+<pre><code class="language-x86asm">; 常量定义（ATX电源相关端口和命令）
+POWER_CTRL_PORT equ 0604h ; 假设的电源控制端口（不同硬件可能不同）
+SHUTDOWN_CMD equ 0FEh ; 关机命令（ATX电源通常使用特定命令码）
+WAIT_LOOP_COUNT equ 10000 ; 等待硬件响应的循环次数
+
+code segment
+    assume cs:code, ds:data
+
+; 关机中断服务程序（入口：AH=00h表示执行关机）
+; 功能：向电源控制端口发送关机命令，等待硬件响应
+shutdown_int proc far
+    push ax
+    push bx
+    push cx
+    push dx
+    push si
+    push di
+    push es
+    push ds ; 保存所有寄存器
+
+    ; 仅处理AH=00h的关机命令
+    cmp ah, 00h
+    jne int_end
+
+    ; 步骤1：发送关机命令到电源控制端口
+    mov dx, POWER_CTRL_PORT
+    mov al, SHUTDOWN_CMD
+    out dx, al ; 向硬件发送关机指令
+
+    ; 步骤2：等待硬件响应（循环延迟，确保命令被接收）
+    mov cx, WAIT_LOOP_COUNT
+wait_shutdown:
+    loop wait_shutdown ; 空循环等待
+
+    ; 步骤3：若支持，可检测电源状态（此处简化，不处理反馈）
+
+int_end:
+    pop ds
+    pop es
+    pop di
+    pop si
+    pop dx
+    pop cx
+    pop bx
+    pop ax
+    iret ; 中断返回
+shutdown_int endp
+
+; 安装关机中断到int 63h（用户自定义中断号）
+install proc
+    cli ; 关中断，防止安装过程被打断
+    mov ax, 0
+    mov es, ax ; ES指向中断向量表（0段）
+    mov di, 63h * 4 ; int 63h的向量地址：63h×4=0000:018C
+    ; 保存原中断向量（用于恢复）
+    mov ax, es:[di]
+    mov [orig_63h_off], ax
+    mov ax, es:[di + 2]
+    mov [orig_63h_seg], ax
+    ; 写入自定义关机中断的地址
+    mov ax, offset shutdown_int
+    stosw ; 写入偏移量
+    mov ax, cs
+    stosw ; 写入段地址
+    sti ; 开中断
+    ret
+install endp
+
+; 恢复原始中断向量（程序退出时调用）
+restore proc
+    cli
+    mov ax, 0
+    mov es, ax
+    mov di, 63h * 4
+    ; 恢复原中断向量
+    mov ax, [orig_63h_off]
+    stosw
+    mov ax, [orig_63h_seg]
+    stosw
+    sti
+    ret
+restore proc
+
+; 主程序：测试关机中断
+main:
+    mov ax, data
+    mov ds, ax ; 初始化数据段
+
+    call install ; 安装关机中断
+
+    ; 测试：调用关机中断（实际使用时需谨慎！）
+    mov ah, 00h ; 功能：执行关机
+    int 63h ; 触发关机中断
+
+    ; 若关机失败，恢复中断并退出（仅作演示）
+    call restore
+    mov ah, 4Ch
+    int 21h
+
+code ends
+
+; 数据段：保存原始中断向量
+data segment
+    orig_63h_off dw 0 ; int 63h原始偏移量
+    orig_63h_seg dw 0 ; int 63h原始段地址
+data ends
+
+    end main</code></pre>
+<h1>代码说明</h1>
+<ol>
+<li>硬件交互逻辑：代码假设系统使用ATX电源，通过特定控制端口（0604h，实际需根据硬件手册修改）发送关机命令（0FEh）。ATX电源通常支持通过端口命令触发关机，具体端口和命令码需参考硬件文档。  </li>
+<li>中断功能设计：a.自定义int 63h作为关机中断，仅响应AH=00h的功能调用，执行以下操作：- 向电源控制端口发送关机命令；b.循环延迟等待硬件处理命令（避免命令未被接收）。  </li>
+<li>中断安装与恢复：b.安装时将自定义中断服务程序地址写入int 63h的向量表，并保存原始向量；b.程序退出前恢复原始向量，避免影响系统默认中断处理。  </li>
+<li>注意事项：a.实际关机端口和命令因硬件而异（如某些系统使用0x60/0x64端口或ACPI协议），需根据具体环境调整；b.现代操作系统（如Windows/Linux）在保护模式下禁止直接端口操作，此代码仅适用于实模式环境（如DOS）。</li>
+</ol></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编&amp;硬件】鼠标控制中断的具体实现</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-60"><h2>【汇编&amp;硬件】鼠标控制中断的具体实现</h2><h4>时间：2026-03-14 20:02:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-7-1.html">#汇编 - 硬件系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>在8086汇编中，鼠标中断通常通过int 33h（鼠标BIOS中断）实现，其功能包括初始化鼠标、获取鼠标位置、处理按键等。下面我们学习一个模拟int 33h核心功能的自定义鼠标中断程序，支持鼠标初始化、位置获取、按键检测。</p>
+<h1>代码实现</h1>
+<pre><code class="language-x86asm">; 常量定义
+MOUSE_DATA_PORT equ 03f8h ; 鼠标数据端口（COM1）
+MOUSE_CTRL_PORT equ 03f9h ; 鼠标控制端口
+MOUSE_PACKET_LEN equ 3 ; 鼠标数据包长度（3字节）
+
+code segment
+    assume cs:code, ds:data
+
+; 自定义鼠标中断服务程序（入口：AX=功能号）
+; 功能：
+; AX=0000h：初始化鼠标（返回BX=0表示成功）
+; AX=0003h：获取鼠标状态（BX=按键状态，CX=X偏移，DX=Y偏移）
+; AX=000Bh：设置鼠标显示（CX=X坐标，DX=Y坐标，显示鼠标指针）
+mouse_int proc far
+    push ax
+    push bx
+    push cx
+    push dx
+    push si
+    push di
+    push es
+    push ds ; 保存所有寄存器
+    push bp
+    mov bp, sp
+
+    ; 根据功能号跳转处理
+    cmp ax, 0000h
+    je mouse_init ; 初始化鼠标
+    cmp ax, 0003h
+    je get_status ; 获取鼠标状态
+    cmp ax, 000Bh
+    je show_cursor ; 显示鼠标指针
+    jmp int_end ; 不支持的功能
+
+; 功能0000h：初始化鼠标
+; 返回：BX=0（成功），BX≠0（失败）
+mouse_init:
+    ; 向鼠标控制器发送初始化命令（实际硬件需按协议操作）
+    mov dx, MOUSE_CTRL_PORT
+    mov al, 0Ah ; 复位命令
+    out dx, al
+
+    ; 等待鼠标响应（简化：假设初始化成功）
+    mov bx, 0 ; BX=0表示成功
+    mov [mouse_ready], 1 ; 标记鼠标就绪
+    jmp int_end
+
+; 功能0003h：获取鼠标状态
+; 返回：BX=按键状态（bit0=左键，bit1=右键），CX=X偏移，DX=Y偏移
+get_status:
+    cmp [mouse_ready], 0
+    je int_end ; 鼠标未初始化，直接返回
+
+    ; 读取鼠标数据包（3字节：状态字节+X偏移+Y偏移）
+    mov si, offset mouse_packet ; SI指向数据包缓冲区
+    mov cx, MOUSE_PACKET_LEN
+read_packet:
+    mov dx, MOUSE_DATA_PORT
+    in al, dx ; 从数据端口读取1字节
+    mov [si], al
+    inc si
+    loop read_packet
+
+    ; 解析数据包：第1字节=状态，第2字节=X偏移，第3字节=Y偏移
+    mov al, [mouse_packet] ; 状态字节
+    mov bl, 0
+    test al, 01h ; 检测左键（bit0=1表示按下）
+    jz no_left
+    or bl, 01h
+no_left:
+    test al, 02h ; 检测右键（bit1=1表示按下）
+    jz no_right
+    or bl, 02h
+no_right:
+    mov bx, bl ; BX=按键状态
+
+    mov cl, [mouse_packet+1] ; CX=X偏移
+    mov ch, 0
+    mov cx, cx
+
+    mov dl, [mouse_packet+2] ; DX=Y偏移（注意Y方向通常与屏幕相反）
+    mov dh, 0
+    neg dx ; 反转Y偏移（适应屏幕坐标系）
+    jmp int_end
+
+; 功能000Bh：显示鼠标指针（简化为在指定位置画字符）
+; 入口：CX=X坐标，DX=Y坐标
+show_cursor:
+    ; 保存当前光标位置
+    push dx
+    push cx
+
+    ; 转换坐标为文本模式行列（假设80x25文本模式，每个字符8x16像素）
+    mov ax, dx ; AX=Y坐标
+    mov bl, 16
+    div bl ; AL=行号（Y/16）
+    mov dh, al
+
+    mov ax, cx ; AX=X坐标
+    mov bl, 8
+    div bl ; AL=列号（X/8）
+    mov dl, al
+
+    ; 在计算出的行列位置显示鼠标指针（用'#'表示）
+    mov ah, 02h ; 设置光标位置
+    int 10h
+    mov ah, 09h ; 显示字符
+    mov al, '#'
+    mov bl, 0Ch ; 红色属性
+    mov cx, 1
+    int 10h
+
+    ; 恢复光标位置
+    pop cx
+    pop dx
+    jmp int_end
+
+; 中断结束：恢复寄存器并返回
+int_end:
+    pop bp
+    pop ds
+    pop es
+    pop di
+    pop si
+    pop dx
+    pop cx
+    pop bx
+    pop ax
+    iret ; 中断返回
+mouse_int endp
+
+; 安装自定义鼠标中断向量（替换int 33h）
+install proc
+    cli ; 关中断
+    mov ax, 0
+    mov es, ax ; ES指向中断向量表（0段）
+    mov di, 33h*4 ; int 33h向量地址：33h×4=0000:00D4
+    mov ax, offset mouse_int ; 中断服务程序偏移
+    stosw
+    mov ax, cs ; 中断服务程序段地址
+    stosw
+    sti ; 开中断
+    ret
+install endp
+
+; 主程序：初始化并测试鼠标中断
+main:
+    mov ax, data
+    mov ds, ax ; 初始化数据段
+
+    call install ; 安装自定义鼠标中断
+
+    ; 测试1：初始化鼠标
+    mov ax, 0000h
+    int 33h ; 调用自定义中断
+    cmp bx, 0
+    jne exit ; 初始化失败则退出
+
+    ; 测试2：循环获取鼠标状态并更新指针
+loop_test:
+    mov ax, 0003h ; 获取鼠标状态
+    int 33h
+    ; BX=按键状态，CX=X偏移，DX=Y偏移
+
+    ; 更新鼠标绝对坐标（累加偏移）
+    add [mouse_x], cx
+    add [mouse_y], dx
+
+    ; 限制坐标在屏幕范围内（320x200为例）
+    cmp [mouse_x], 320
+    jl x_ok
+    mov [mouse_x], 320
+x_ok:
+    cmp [mouse_x], 0
+    jge y_ok
+    mov [mouse_x], 0
+y_ok:
+    cmp [mouse_y], 200
+    jl y_ok2
+    mov [mouse_y], 200
+y_ok2:
+    cmp [mouse_y], 0
+    jge show
+    mov [mouse_y], 0
+
+show:
+    ; 显示鼠标指针
+    mov ax, 000Bh
+    mov cx, [mouse_x] ; X坐标
+    mov dx, [mouse_y] ; Y坐标
+    int 33h
+
+    ; 检测左键按下，按左键退出
+    test bx, 01h
+    jz loop_test
+exit:
+    mov ah, 4Ch
+    int 21h ; 程序退出
+
+code ends
+
+; 数据段：保存鼠标状态和缓冲区
+data segment
+    mouse_ready db 0 ; 鼠标就绪标记（1=就绪）
+    mouse_packet db 3 dup(0) ; 鼠标数据包缓冲区（3字节）
+    mouse_x dw 160 ; 鼠标X坐标（初始中心）
+    mouse_y dw 100 ; 鼠标Y坐标（初始中心）
+data ends
+
+    end main</code></pre>
+<p>代码说明</p>
+<ol>
+<li>中断功能设计：模拟int 33h的核心功能，包括鼠标初始化（检测鼠标是否存在）、状态获取（按键和移动偏移）、指针显示（在指定坐标画字符模拟指针）。  </li>
+<li>鼠标数据处理：a.鼠标通过串行端口（如COM1，端口03f8h）通信，数据包为3字节（状态字节+X偏移+Y偏移）。b.状态字节的bit0表示左键按下，bit1表示右键按下；X/Y偏移表示相对移动量。  </li>
+<li>指针显示：简化为在文本模式下，将鼠标坐标转换为行列位置，显示字符 # 作为指针（实际图形模式需绘制鼠标形状）。  </li>
+<li>中断安装：修改中断向量表中int 33h的入口地址，指向自定义服务程序，安装时关中断以避免冲突。</li>
+</ol></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

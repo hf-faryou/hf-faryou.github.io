@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编 - 功能】中断安装中断实现</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-64"><h2>【汇编 - 功能】中断安装中断实现</h2><h4>时间：2026-04-11 16:42:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-6-1.html">#汇编 - 功能系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>在8086汇编中，“中断安装中断”可以理解为通过一个自定义中断来统一管理其他中断服务程序的安装/卸载，实现中断向量的动态配置。以下是一个实现这一功能的代码，通过int 62h作为“中断安装中断”，支持注册新中断、卸载已有中断。</p>
+<h1>代码实现</h1>
+<pre><code class="language-x86asm">; 常量定义
+VECTOR_TABLE_SEG equ 0 ; 中断向量表段地址（固定为0段）
+MAX_INT_NUM equ 0FFh ; 最大中断号（0-255）
+
+code segment
+    assume cs:code, ds:data
+
+; ------------------------------
+; 中断安装中断服务程序（入口：AH=功能号）
+; 功能：
+; AH=00h：安装中断（AL=中断号，DS:SI=中断服务程序地址）
+; AH=01h：卸载中断（AL=中断号，恢复为默认处理程序）
+; AH=02h：查询中断（AL=中断号，返回DS:SI=当前中断服务程序地址）
+; ------------------------------
+install_int proc far
+    push ax
+    push bx
+    push cx
+    push dx
+    push si
+    push di
+    push es
+    push ds ; 保存所有寄存器
+    push bp
+    mov bp, sp
+
+    ; 检查中断号合法性（0-255）
+    cmp al, MAX_INT_NUM
+    ja int_end ; 中断号超出范围，不处理
+
+    ; 根据功能号跳转
+    cmp ah, 00h
+    je install ; 安装中断
+    cmp ah, 01h
+    je uninstall ; 卸载中断
+    cmp ah, 02h
+    je query ; 查询中断
+    jmp int_end
+
+; ------------------------------
+; 功能00h：安装中断
+; 入口：AL=中断号，DS:SI=中断服务程序（段:偏移）
+; 操作：将DS:SI写入中断向量表对应位置
+; ------------------------------
+install:
+    ; 计算中断向量在表中的地址：中断号×4（每个向量占4字节：偏移2字节+段2字节）
+    mov bl, al
+    mov bh, 0
+    shl bx, 2 ; BX = 中断号×4（向量表偏移）
+
+    ; 指向中断向量表（0段）
+    mov ax, VECTOR_TABLE_SEG
+    mov es, ax
+
+    ; 关中断，保证写入向量的原子性
+    cli
+    ; 保存原中断向量（用于卸载时恢复）
+    mov ax, es:[bx] ; 原偏移
+    mov [old_vector + bx], ax
+    mov ax, es:[bx + 2] ; 原段
+    mov [old_vector + bx + 2], ax
+    ; 写入新中断向量（DS:SI）
+    mov ax, si ; 新偏移
+    mov es:[bx], ax
+    mov ax, ds ; 新段
+    mov es:[bx + 2], ax
+    sti ; 开中断
+
+    jmp int_end
+
+; ------------------------------
+; 功能01h：卸载中断
+; 入口：AL=中断号
+; 操作：恢复中断向量表中该中断号的原始值
+; ------------------------------
+uninstall:
+    mov bl, al
+    mov bh, 0
+    shl bx, 2 ; BX=中断号×4
+
+    mov ax, VECTOR_TABLE_SEG
+    mov es, ax
+
+    cli ; 关中断
+    ; 恢复原向量（从保存的old_vector中读取）
+    mov ax, [old_vector + bx] ; 原偏移
+    mov es:[bx], ax
+    mov ax, [old_vector + bx + 2] ; 原段
+    mov es:[bx + 2], ax
+    sti ; 开中断
+
+    jmp int_end
+
+; ------------------------------
+; 功能02h：查询中断
+; 入口：AL=中断号；返回：DS:SI=当前中断服务程序地址
+; ------------------------------
+query:
+    mov bl, al
+    mov bh, 0
+    shl bx, 2 ; BX=中断号×4
+
+    mov ax, VECTOR_TABLE_SEG
+    mov es, ax
+
+    ; 读取当前向量（偏移→SI，段→DS）
+    mov si, es:[bx] ; 当前偏移
+    mov dx, es:[bx + 2] ; 当前段
+    mov ds, dx ; DS=当前段
+
+    jmp int_end
+
+; ------------------------------
+; 中断结束：恢复寄存器并返回
+; ------------------------------
+int_end:
+    pop bp
+    pop ds
+    pop es
+    pop di
+    pop si
+    pop dx
+    pop cx
+    pop bx
+    pop ax
+    iret ; 中断返回
+install_int endp
+
+; ------------------------------
+; 初始化：安装"中断安装中断"自身（int 62h）
+; ------------------------------
+init proc
+    cli ; 关中断
+    mov ax, VECTOR_TABLE_SEG
+    mov es, ax
+    mov di, 62h * 4 ; int 62h的向量地址：62h×4=0000:0188
+    ; 保存int 62h的原向量（用于程序退出时恢复）
+    mov ax, es:[di]
+    mov [orig_62h_off], ax
+    mov ax, es:[di + 2]
+    mov [orig_62h_seg], ax
+    ; 写入自定义中断服务程序地址
+    mov ax, offset install_int
+    stosw ; 偏移
+    mov ax, cs
+    stosw ; 段
+    sti ; 开中断
+    ret
+init endp
+
+; ------------------------------
+; 退出：恢复int 62h的原始向量
+; ------------------------------
+exit proc
+    cli
+    mov ax, VECTOR_TABLE_SEG
+    mov es, ax
+    mov di, 62h * 4
+    mov ax, [orig_62h_off]
+    stosw
+    mov ax, [orig_62h_seg]
+    stosw
+    sti
+    ; 调用DOS退出
+    mov ah, 4Ch
+    int 21h
+    ret
+exit proc
+
+; ------------------------------
+; 测试用的示例中断服务程序（如键盘中断处理）
+; ------------------------------
+test_int proc far
+    push ax
+    mov ah, 02h
+    mov dl, 'A' ; 触发时显示'A'
+    int 21h
+    pop ax
+    iret
+test_int endp
+
+; ------------------------------
+; 主程序：测试中断安装功能
+; ------------------------------
+main:
+    mov ax, data
+    mov ds, ax ; 初始化数据段
+
+    call init ; 安装int 62h（中断安装中断）
+
+    ; 测试1：通过int 62h安装test_int到int 63h
+    mov ah, 00h ; 功能：安装
+    mov al, 63h ; 目标中断号63h
+    mov si, offset test_int ; 中断服务程序偏移
+    ; DS已指向data，此处需将DS改为test_int所在段（即CS）
+    push cs
+    pop ds
+    int 62h ; 调用中断安装中断
+    ; 恢复DS为data段
+    mov ax, data
+    mov ds, ax
+
+    ; 测试2：调用int 63h，验证是否安装成功
+    int 63h ; 应显示'A'
+
+    ; 测试3：通过int 62h查询int 63h的当前服务程序
+    mov ah, 02h ; 功能：查询
+    mov al, 63h ; 中断号63h
+    int 62h ; 返回DS:SI=test_int地址（可自行验证）
+
+    ; 测试4：通过int 62h卸载int 63h
+    mov ah, 01h ; 功能：卸载
+    mov al, 63h ; 中断号63h
+    int 62h
+
+    ; 退出程序（恢复环境）
+    call exit
+
+code ends
+
+; 数据段：保存原始中断向量
+data segment
+    orig_62h_off dw 0 ; int 62h原始偏移
+    orig_62h_seg dw 0 ; int 62h原始段
+    ; 保存各中断的原始向量（每个中断占4字节，共256个中断）
+    old_vector dw MAX_INT_NUM * 2 dup(0) ; 256×4字节=1024字节
+data ends
+
+    end main</code></pre>
+<h1>代码说明</h1>
+<ol>
+<li>核心功能设计：自定义int 62h作为“中断安装中断”，提供三类操作：a.安装中断（AH=00h）：将指定中断号与服务程序绑定，保存原始向量以便后续恢复。b.卸载中断（AH=01h）：将中断号的向量恢复为安装前的原始值。c.查询中断（AH=02h）：获取指定中断号当前绑定的服务程序地址。  </li>
+<li>中断向量表操作：中断向量表位于0段，每个中断号对应4字节（偏移2字节+段2字节）。通过 中断号×4 计算向量地址，操作时需关中断（ cli ）保证原子性，避免写入过程被其他中断打断。  </li>
+<li>自安装与恢复：程序初始化时，将自身的 install_int 服务程序注册到int 62h，并保存int 62h的原始向量；程序退出时恢复原始向量，避免破坏系统环境。  </li>
+<li>测试逻辑：主程序通过int 62h安装一个测试中断（int 63h），调用该中断验证效果，再查询、卸载，完整演示中断安装中断的使用流程。</li>
+</ol></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

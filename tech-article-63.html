@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编&amp;硬件】时钟中断的具体实现</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-63"><h2>【汇编&amp;硬件】时钟中断的具体实现</h2><h4>时间：2026-04-11 16:41:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-7-1.html">#汇编 - 硬件系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>int 8h是8086系统中由8253定时器通道0触发的系统时钟中断，主要用于维持系统时间、触发定时任务等，默认由BIOS或DOS内核实现。以下是一个模拟int 8h核心功能的自定义中断服务程序，包含系统时间更新、定时中断处理等功能。</p>
+<h1>代码实现</h1>
+<pre><code class="language-x86asm">; 常量定义
+TIMER_CTRL_PORT equ 43h ; 8253定时器控制端口
+TIMER_CH0_PORT equ 40h ; 定时器通道0端口
+BASE_FREQ equ 1193180 ; 定时器基准频率（Hz）
+CLK_TICKS_PER_SEC equ 18 ; 每秒时钟滴答数（DOS默认，18.2次/秒）
+BIOS_TIME_SEG equ 0040h ; BIOS时间存储段地址
+BIOS_TIME_OFF equ 006Ch ; BIOS时间存储偏移（dword：自午夜起的滴答数）
+
+code segment
+    assume cs:code, ds:data
+
+; 自定义int 8h中断服务程序
+; 功能：
+; 1. 定时器中断处理（维持系统时钟）
+; 2. 更新BIOS时间（滴答数累计）
+; 3. 调用原int 8h服务程序（链式调用，保留系统功能）
+
+int8_proc proc far
+    push ax
+    push bx
+    push cx
+    push dx
+    push si
+    push di
+    push es
+    push ds ; 保存所有寄存器
+
+    ; 步骤1：更新BIOS系统时间（滴答数）
+    mov ax, BIOS_TIME_SEG
+    mov es, ax ; ES指向BIOS数据段
+    inc dword ptr es:[BIOS_TIME_OFF] ; 滴答数+1（每中断一次加1）
+
+    ; 步骤2：触发int 1Ch（用户定时中断，默认无操作，可由用户扩展）
+    int 1Ch ; 调用用户定时中断钩子
+
+    ; 步骤3：发送EOI信号给8259A中断控制器，允许后续中断
+    mov al, 20h ; EOI命令
+    out 20h, al ; 发送给主8259A
+
+    ; 步骤4：链式调用原int 8h服务程序（保留系统默认功能）
+    call dword ptr cs:[orig_int8] ; 调用原int 8h
+
+    ; 恢复寄存器并返回
+    pop ds
+    pop es
+    pop di
+    pop si
+    pop dx
+    pop cx
+    pop bx
+    pop ax
+    iret ; 中断返回
+int8_proc endp
+
+; 初始化定时器通道0（设置中断频率）
+; 频率 = BASE_FREQ / 计数初值 → 计数初值 = BASE_FREQ / 目标频率
+init_timer proc
+    ; 计算计数初值（18.2Hz对应的初值：1193180 / 18.2 ≈ 65536）
+    mov ax, 0 ; 计数初值=65536（0000h，16位最大值）
+    ; 配置定时器通道0：模式3（方波输出），16位计数
+    mov al, 00110110b ; 控制字：通道0，读写高8+低8，模式3，二进制
+    out TIMER_CTRL_PORT, al
+    ; 写入计数初值（65536的低8位和高8位均为00h）
+    mov al, 0
+    out TIMER_CH0_PORT, al ; 低8位
+    out TIMER_CH0_PORT, al ; 高8位
+    ret
+init_timer endp
+
+; 安装自定义int 8h中断（替换系统默认中断）
+install_int8 proc
+    cli ; 关中断，防止安装过程被打断
+    mov ax, 0
+    mov ds, ax ; DS指向中断向量表（0段）
+    ; 保存原int 8h中断向量（段:偏移）
+    mov ax, ds:[8*4] ; 原偏移
+    mov word ptr cs:[orig_int8], ax
+    mov ax, ds:[8*4 + 2] ; 原段
+    mov word ptr cs:[orig_int8 + 2], ax
+    ; 写入自定义中断服务程序地址到int 8h向量
+    mov ax, offset int8_proc
+    mov ds:[8*4], ax ; 偏移
+    mov ax, cs
+    mov ds:[8*4 + 2], ax ; 段
+    sti ; 开中断
+    ret
+install_int8 end
+
+; 恢复原int 8h中断向量（程序退出时调用）
+restore_int8 proc
+    cli
+    mov ax, 0
+    mov ds, ax
+    ; 恢复原向量
+    mov ax, word ptr cs:[orig_int8]
+    mov ds:[8*4], ax
+    mov ax, word ptr cs:[orig_int8 + 2]
+    mov ds:[8*4 + 2], ax
+    sti
+    ret
+restore_int8 endp
+
+; 测试用的int 1Ch用户定时中断（每秒显示一次）
+int1c_proc proc far
+    push ax
+    push bx
+    push cx
+    push dx
+    push ds
+    mov ax, data
+
+    mov ds, ax ; 初始化数据段
+    ; 每CLK_TICKS_PER_SEC次中断（约1秒）执行一次
+    inc word ptr [tick_count]
+    mov ax, [tick_count]
+    cmp ax, CLK_TICKS_PER_SEC
+    jne int1c_end
+
+    ; 1秒到，显示字符'.'
+    mov ah, 02h
+    mov dl, '.'
+    int 21h
+    mov word ptr [tick_count], 0 ; 重置计数器
+
+int1c_end:
+    pop ds
+    pop dx
+    pop cx
+    pop bx
+    pop ax
+    iret
+int1c_proc endp
+
+; 安装int 1Ch用户定时中断
+install_int1c proc
+    cli
+    mov ax, 0
+    mov ds, ax
+    ; 保存原int 1Ch向量
+    mov ax, ds:[1Ch*4]
+    mov word ptr cs:[orig_int1c], ax
+    mov ax, ds:[1Ch*4 + 2]
+    mov word ptr cs:[orig_int1c + 2], ax
+    ; 写入自定义int 1Ch处理程序
+    mov ax, offset int1c_proc
+    mov ds:[1Ch*4], ax
+    mov ax, cs
+    mov ds:[1Ch*4 + 2], ax
+    sti
+    ret
+install_int1c endp
+
+; 恢复原int 1Ch中断
+restore_int1c proc
+    cli
+    mov ax, 0
+    mov ds, ax
+    mov ax, word ptr cs:[orig_int1c]
+    mov ds:[1Ch*4], ax
+    mov ax, word ptr cs:[orig_int1c + 2]
+    mov ds:[1Ch*4 + 2], ax
+    sti
+    ret
+restore_int1c proc
+
+; 主程序：安装中断并测试
+main:
+    mov ax, data
+    mov ds, ax ; 初始化数据段
+
+    ; 安装int 8h和int 1Ch中断
+    call install_int8
+    call install_int1c
+    call init_timer ; 初始化定时器
+
+    ; 等待用户按键退出
+    mov ah, 01h
+    int 21h ; 等待按键
+
+    ; 恢复系统中断
+    call restore_int1c
+    call restore_int8
+
+    ; 程序退出
+    mov ah, 4Ch
+    int 21h
+
+; 数据区（在代码段中定义，避免额外段操作）
+orig_int8 dd 0 ; 原int 8h中断向量（段:偏移）
+orig_int1c dd 0 ; 原int 1Ch中断向量
+tick_count dw 0 ; 用于int 1Ch的滴答计数器
+
+
+code ends
+data segment
+data ends ; 数据段仅作占位
+
+    end main</code></pre>
+<h1>代码说明</h1>
+<ol>
+<li>核心功能：自定义int 8h中断服务程序模拟了系统时钟中断的核心功能，包括：a.每触发一次中断，更新BIOS数据区的滴答数（自午夜起的累计中断次数，用于系统时间计算）。b.调用int 1Ch（用户定时中断钩子），允许用户扩展定时任务（如示例中每秒显示一个点）。c.发送EOI信号给8259A中断控制器，确保后续中断能被响应。d.链式调用原int 8h服务程序，保留系统默认功能（如DOS的时间管理）。  </li>
+<li>定时器配置：8253定时器通道0被配置为模式3（方波输出），计数初值为65536，对应中断频率约18.2次/秒（DOS系统默认），计算公式为：计数初值=基准频率（1193180Hz）/目标频率（18.2Hz≈65536。  </li>
+<li>中断安装与恢复：a.安装时保存原int 8h和int 1Ch的中断向量，将自定义处理程序地址写入中断向量表。b.程序退出前恢复原向量，避免破坏系统正常运行。  </li>
+<li>测试逻辑：主程序安装中断后，通过int 1Ch的自定义处理程序实现每秒显示一个点，直观展示定时中断的效果，按任意键退出并恢复系统环境。</li>
+</ol></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

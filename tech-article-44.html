@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编基础教程】再谈栈</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-44"><h2>【汇编基础教程】再谈栈</h2><h4>时间：2026-01-30 21:43:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-8-1.html">#汇编基础教程系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>两年前，我写过一篇《【汇编学习随记】汇编中栈的定义》，当时是初次接触汇编语言，对于栈的理解仅限于理解这是一种数据结构，自己却没有理解怎么用栈。当时确实是肤浅了。两年后的今天，我总算是搞清楚了汇编中栈究竟是什么，写下来分享给大家。</p>
+<h1>栈是什么</h1>
+<p>数据结构上理解栈，我想不必过多解释了，本质就是一块具有特定进出规则的内存空间，在这块空间内遵循数据先进后出的原则。<br />
+但我们作为汇编学习者，仅有这些理解是不够的，让我们从8086CPU的角度看看栈。在8086CPU中，提供了一对段寄存器SS和寄存器SP，用于指向栈顶，CPU对栈的两个操作push（入栈）和pop（出栈）都取决于这两个（段）寄存器，但却没有寄存器能用于标识栈底，这意味着如果我们不提前计算好哪些内存单元是栈空间，栈空间到哪里，那么就很容易出现栈顶超界的问题，可能影响到其他内存空间的数据，从而导致程序异常。（这里也体现了汇编语言和高级语言的不同：汇编语言要求你手动把内存空间抠的很细，但是用高级语言编程时肯定不用考虑这些，因为操作系统已经代为安排好了。想想C++ STL库里的那个栈，根本不用想栈顶是否超界对吧）。对此，我们只能在设计程序时就预留好栈。<br />
+因为这一特点，通常情况下，我们不会把栈和代码放在一个段里，而是给栈单独开一个段。<br />
+化学上常说，性质决定用途。由于栈这一独特的结构，（至少在汇编中）栈通常用于多层循环时，进入内层循环前暂存外层循环的数据，内层循环结束了再将这些数据恢复出来。这是一个编程时的惯例。</p>
+<h1>实际应用</h1>
+<p>上一篇文章中的双层循环就是一个不错的例子，这里就不新出题目了，直接搬过来，要求用栈暂存数据~<br />
+题目：编程，将datasg段中每个单词改成小写字母（用栈）</p>
+<pre><code class="language-x86asm">assume cs:codesg,ds:datasg,ss:stacksg
+
+stacksg segment
+stacksg ends
+
+datasg segment
+  db 'Far             '
+  db 'You             '
+  db 'HJC             '
+  db 'BBS             '
+datasg ends
+
+codesg segment
+  start:
+codesg ends
+ends start</code></pre>
+<p>直接上答案：</p>
+<pre><code class="language-x86asm">assume cs:codesg,ds:datasg,ss:stacksg;三个段寄存器cs、ds、ss分别关联三个段：代码段、数据段、栈段
+
+stacksg segment
+  dw 0,0,0,0,0,0,0,0;定义出16个位，刚刚
+stacksg ends
+
+datasg segment
+  db 'Far             '
+  db 'You             '
+  db 'HJC             '
+  db 'BBS             '
+datasg ends
+
+codesg segment
+
+  start:mov bx,0
+        mov cx,4
+        mov sp,0;标记当前栈底
+
+     s0:push cx;进入内层循环前，cx入栈
+        mov si,0
+        mov cx,3;重置cx，进内层循环
+
+      s:mov al,[bx+si]
+        or al,00100000b
+        mov [bx+si],al
+        inc si
+        loop s
+
+        add bx,16
+        pop cx
+        loop s0
+
+        mov ax,4c00h
+        int 21h
+codesg ends
+end start</code></pre></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编基础教程】来存一些数据！</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-42"><h2>【汇编基础教程】来存一些数据！</h2><h4>时间：2026-01-30 21:43:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-8-1.html">#汇编基础教程系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>写程序的过程中，我们会用到许多数据，包括图片、视频、长文本等，这些数据在程序运行前就应该同代码一起暂存至内存中，同时，栈空间也需要预先分配。今天我们来学习一下汇编中存放数据的方式。</p>
+<h1>操作符X ptr</h1>
+<p>8086CPU支持处理尺寸为1byte或1word。在汇编指令中，如果存在寄存器，那么可以由寄存器名直接指明操作数据的尺寸。例如：</p>
+<pre><code class="language-x86asm">mov ax,[0];字操作（ax为16位寄存器）
+mov al,[0];字节操作（al为8位寄存器）</code></pre>
+<p>但是如果没有寄存器名存在，那我们可以用操作符X ptr指明内存单元长度，例：</p>
+<pre><code class="language-x86asm">mov word ptr [0],1
+inc word ptr [0]
+add word ptr [0],1
+;用word ptr指明操作的是一个字
+mov byte ptr [0],1
+inc byte ptr [0]
+add byte ptr [0],2
+;用byte ptr指明操作的是一个字节</code></pre>
+<h1>伪指令db、dw、dd</h1>
+<p>这三个指令都是伪指令，为了方便程序员快速向内存中写入数据而存在，格式：</p>
+<pre><code class="language-x86asm">db/dw/dd 数据1,数据2,...;可以写入任意个数字节型/字型/双字型数据</code></pre>
+<p>同时，db也可以用于写入字符串，每个字符占1个字节，例：</p>
+<pre><code class="language-x86asm">db 'faryou';从该处开始的6个内存单元存放字符串'faryou'的ASCLL码</code></pre>
+<h1>dup操作符</h1>
+<p>dup操作符的存在可以让我们更方便地写入重复数据，它在使用时与db/dw/dd联用，格式：</p>
+<pre><code class="language-x86asm">db/dw/dd 重复次数 dup (重复的数据)</code></pre>
+<p>例如：</p>
+<pre><code class="language-x86asm">db 5 dup (0);相当于：db 0,0,0,0,0
+db 5 dup (0,1,2,3,4);相当于：db 0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4
+dw 5 dup ('faryou ','HJCBBS ');相当于：dw 'faryou HJCBBS faryou HJCBBS faryou HJCBBS faryou HJCBBS faryou HJCBBS'</code></pre>
+<h1>div除法指令</h1>
+<p>div是除法指令，但是其格式与add、sub不同，其需要与ax寄存器或dx&amp;ax寄存器联合使用，格式：</p>
+<pre><code class="language-x86asm">div 寄存器名/内存单元</code></pre>
+<p>div可以进行两种除法：<br />
+第一种（在div指令中用byte ptr指明）：</p>
+<blockquote>
+<p>被除数（16位）：存放于ax寄存器中<br />
+除数（8位）：存放于div指令中指明的寄存器/内存单元中<br />
+商（8位）：存放于al寄存器中<br />
+余数（8位）：存放在ah寄存器中</p>
+</blockquote>
+<p>第二种（在div指令中用word ptr指明）：</p>
+<blockquote>
+<p>被除数（32位）：存放于dx&amp;ax寄存器中，其中dx存放高16位，ax存放低16位<br />
+除数（16位）：存放于div指令中指明的寄存器/内存单元中<br />
+商（16位）：存放于ax寄存器中<br />
+余数（16位）：存放于dx寄存器中</p>
+</blockquote>
+<p>下面举个例子：计算114514/123<br />
+代码如下：</p>
+<pre><code class="language-x86asm">;先将114514转到16进制：19842H
+mov dx,0001H
+mov ax,9852H
+mov bx,123
+div bx</code></pre>
+<p>执行后，ax=007cH，dx=0001H。</p>
+<h1>mul乘法指令</h1>
+<p>使用格式与div类似，这里不详细介绍了。说明一下各寄存器的存放内容：<br />
+如果是8位乘法，则乘数一个在al寄存器中，另一个在指定的8位寄存器或内存单元中，结果在ax寄存器中。如果是16位乘法，则乘数一个在ax寄存器中，另一个在指定的16位寄存器或内存单元中，结果高16位在dx寄存器中，低16位在ax寄存器中。</p></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

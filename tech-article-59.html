@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编&amp;硬件】声音输出中断的具体实现</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-59"><h2>【汇编&amp;硬件】声音输出中断的具体实现</h2><h4>时间：2026-03-07 20:34:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-7-1.html">#汇编 - 硬件系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>在8086汇编中，外接声音设备（如扬声器）的中断控制通常涉及对硬件端口的操作，结合中断处理实现声音的触发、频率控制等功能。8255芯片是8086机上的常见声音设备。以下是一个模拟外接声音设备中断的实现，支持设置频率、播放/停止声音，并通过中断响应外部触发信号。</p>
+<h1>代码实现</h1>
+<pre><code class="language-x86asm">; 常量定义
+SPEAKER_PORT equ 61h ; 扬声器控制端口（8255芯片A口）
+TIMER_PORT equ 43h ; 定时器控制端口（8253芯片）
+TIMER_CH2 equ 42h ; 定时器通道2端口（控制扬声器频率）
+SOUND_ON equ 03h ; 扬声器开启掩码（bit0=1：定时器输出，bit1=1：扬声器开关）
+SOUND_OFF equ 00h ; 扬声器关闭掩码
+
+code segment
+    assume cs:code, ds:data
+
+; 声音设备中断服务程序（入口：AH=功能号）
+; 功能：
+; AH=00h：设置声音频率（BX=频率值）
+; AH=01h：开启声音（使用当前设置的频率）
+; AH=02h：关闭声音
+; AH=03h：响应外部触发（如按键触发声音，简化为播放固定频率）
+sound_int proc far
+    push ax
+    push bx
+    push cx
+    push dx
+    push si
+    push di
+    push es
+    push ds ; 保存所有寄存器
+    push bp
+    mov bp, sp
+
+    ; 根据功能号跳转处理
+    cmp ah, 00h
+    je set_freq ; 设置频率
+    cmp ah, 01h
+    je start_sound ; 开启声音
+    cmp ah, 02h
+    je stop_sound ; 关闭声音
+    cmp ah, 03h
+    je trigger_sound ; 外部触发声音
+    jmp int_end ; 不支持的功能
+
+; 功能00h：设置声音频率
+; 入口：BX=目标频率（Hz）
+; 原理：通过8253定时器通道2设置频率，计算公式：计数初值=1193180/频率
+set_freq:
+    cmp bx, 0
+    je int_end ; 频率为0则无效
+
+    ; 计算定时器计数初值（1193180是8253定时器基准频率）
+    mov dx, 0
+    mov ax, 1193180
+    div bx ; AX=计数初值（1193180 / 频率）
+
+    ; 向定时器写入控制字（通道2，模式3，二进制计数）
+    mov al, 10110110b ; 控制字：通道2，读写高8位+低8位，模式3，二进制
+    out TIMER_PORT, al
+
+    ; 写入计数初值（先低8位，后高8位）
+    mov al, al ; AL=计数初值低8位
+    out TIMER_CH2, al
+    mov al, ah ; AL=计数初值高8位
+    out TIMER_CH2, al
+
+    ; 保存当前频率
+    mov [current_freq], bx
+    jmp int_end
+
+; 功能01h：开启声音
+; 操作：通过扬声器端口开启输出（结合定时器信号）
+start_sound:
+    in al, SPEAKER_PORT ; 读取当前扬声器状态
+    or al, SOUND_ON ; 开启扬声器（设置bit0和bit1）
+    out SPEAKER_PORT, al
+    mov [sound_state], 1 ; 标记声音为开启状态
+    jmp int_end
+
+; 功能02h：关闭声音
+; 操作：关闭扬声器端口输出
+stop_sound:
+    in al, SPEAKER_PORT ; 读取当前扬声器状态
+    and al, not SOUND_ON ; 关闭扬声器（清除bit0和bit1）
+    out SPEAKER_PORT, al
+    mov [sound_state], 0 ; 标记声音为关闭状态
+    jmp int_end
+
+; 功能03h：外部触发声音（如按键触发）
+; 简化：播放固定频率（440Hz，A调）100ms后自动停止
+trigger_sound:
+    ; 设置固定频率440Hz
+    mov bx, 440
+    mov ah, 00h
+    call set_freq ; 调用内部功能设置频率
+
+    ; 开启声音
+    mov ah, 01h
+    call start_sound ; 开启声音
+
+    ; 延时约100ms（通过循环实现，8086约1MHz主频）
+    mov cx, 0Fh
+    mov dx, 4240h
+delay:
+    dec dx
+    jnz delay
+    dec cx
+    jnz delay
+
+    ; 关闭声音
+    mov ah, 02h
+    call stop_sound ; 关闭声音
+    jmp int_end
+
+; 中断结束：恢复寄存器并返回
+int_end:
+    pop bp
+    pop ds
+    pop es
+    pop di
+    pop si
+    pop dx
+    pop cx
+    pop bx
+    pop ax
+    iret ; 中断返回
+sound_int endp
+
+; 安装自定义声音设备中断向量（假设使用int 60h，用户自定义中断）
+install proc
+    cli ; 关中断，防止安装过程被打断
+    mov ax, 0
+    mov es, ax ; ES指向中断向量表（0段）
+    mov di, 60h*4 ; int 60h向量地址：60h×4=0000:0180
+    mov ax, offset sound_int ; 中断服务程序偏移地址
+    stosw ; 写入偏移量到向量表
+    mov ax, cs ; 中断服务程序段地址（当前代码段）
+    stosw ; 写入段地址到向量表
+    sti ; 开中断
+    ret
+install endp
+
+; 主程序：安装中断并测试声音功能
+main:
+    mov ax, data
+    mov ds, ax ; 初始化数据段
+
+    call install ; 安装自定义声音中断
+
+    ; 测试1：设置频率并播放（500Hz，持续1秒）
+    mov ah, 00h
+    mov bx, 500
+    int 60h ; 调用中断设置频率
+
+    mov ah, 01h
+    int 60h ; 开启声音
+
+    ; 延时约1秒
+    mov cx, 0FFh
+    mov dx, 0FFFFh
+delay1:
+    dec dx
+    jnz delay1
+    dec cx
+    jnz delay1
+
+    mov ah, 02h
+    int 60h ; 关闭声音
+
+    ; 测试2：等待外部触发（此处简化为循环等待，实际可结合键盘中断）
+loop_wait:
+    ; 检测按键（如按下任意键触发声音）
+    mov ah, 01h
+    int 16h ; 检查键盘缓冲区
+    jz loop_wait ; 无按键则继续等待
+
+    mov ah, 00h
+    int 16h ; 读取按键（清空缓冲区）
+
+    mov ah, 03h
+    int 60h ; 触发声音
+
+    jmp loop_wait ; 循环等待下一次触发
+
+    ; 程序退出（实际中可通过特定按键退出）
+exit:
+    mov ah, 4Ch
+    int 21h
+
+code ends
+
+; 数据段：保存声音状态和当前频率
+data segment
+    current_freq dw 0 ; 当前设置的频率
+    sound_state db 0 ; 声音状态（0=关闭，1=开启）
+data ends
+
+    end main</code></pre>
+<h1>代码说明</h1>
+<ol>
+<li>硬件交互基础：代码通过8253定时器（控制频率）和8255芯片（控制扬声器开关）实现声音输出。定时器通道2产生特定频率的方波，通过扬声器端口（61h）控制是否输出声音。  </li>
+<li>中断功能设计：a.支持设置频率（通过定时器计数初值计算）、开启/关闭声音（控制扬声器端口掩码）、外部触发（如按键触发固定频率声音）。b.频率计算公式为  计数初值 = 1193180 / 目标频率 （1193180是8086系统定时器的基准频率）。  </li>
+<li>中断安装：使用用户自定义中断号（int 60h），通过修改中断向量表（0段）将中断入口指向自定义服务程序，安装时关中断（ cli ）确保操作安全。  </li>
+<li>测试逻辑：主程序先测试固定频率播放，再通过键盘触发检测，按下任意键时播放预设频率的声音，演示中断的响应能力。</li>
+</ol></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

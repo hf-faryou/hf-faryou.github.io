@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【算法教程】【C/C++】DP（动态规划）：背包DP——程序设计思路与代码实现</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-32"><h2>【算法教程】【C/C++】DP（动态规划）：背包DP——程序设计思路与代码实现</h2><h4>时间：2024-08-19 19:50:00</h4><div class="article-category">分类：编程技术 → 算法类</div><div class="article-tags">标签：<a href="tech-tag-9-1.html">#C/C++</a> <a href="tech-tag-10-1.html">#算法</a> <a href="tech-tag-17-1.html">#算法基础教程系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>上一篇文章中我们学习了简单DP，今天我们来学习一种也很常见的DP——背包DP。</p>
+<h1>程序设计思路</h1>
+<p>背包DP以01背包和完全背包为基础，其他的背包DP都由这两种延伸出去，先看01背包：<br />
+01背包是最简单的背包DP，它是指有n样物品，第i样物品的价值为xi，所占用的容量为yi，你有一个容量为m的背包，要求你用这个背包装下价值最高的物品，每种物品只能装一次。这里每样物品的状态都只有装或不装。故我们可以列出状态转移方程：f[i][j]=max(f[i-1][j],f[i-1][j-yi]+xi（f[i][j]表示在第1到第i个物品中选容量为j的物品能获得的最多的价值）。<br />
+完全背包与01背包的区别在于它每样物品可以选无数次，但它的状态转移方程和01背包有不同。我们可以列出状态转移方程：f[i][j]=max(f[i-1][j-k<em>yi]+k</em>xi)（这里的k是指购买了k件i物品，是for循环中的变量），这样做的时间复杂度为O(n3)，明显偏慢了。但是我们还有下面的优化：f[i][j]=max(f[i-1][j],f[i][j-yi]+xi)，因为我们在进行这次转移前就已经充分的考虑了。这个优化必须自己想清楚。</p>
+<h1>代码实现</h1>
+<p>来看一个01背包问题：<br />
+<img src="https://pic.faryou.eu.org/i/2026/08/11/w8ohit.png" alt="170104443" /><br />
+很明显，这是一道背包题。直接看代码：</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+int n,m,a[105],dp[105][1005];//n、m、a如题意，dp指上文中i
+
+int main(){
+    scanf("%d%d",&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;i++) scanf("%d",&amp;a[i]);
+    for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=m;j++){//分类讨论，判断能不能买
+        if(j==a[i]) dp[i][j]=dp[i-1][j]+1;
+        if(j&gt;a[i]) dp[i][j]=dp[i-1][j]+dp[i-1][j-a[i]];
+        if(j&lt;a[i]) dp[i][j]=dp[i-1][j];
+    }
+    printf("%d",dp[n][m]);
+    return 0;
+}</code></pre>
+<p>DP注重的是自己的理解，而且讲解无法达到很好的效果，请自行理解源码~</p>
+<h1>结语</h1>
+<p>背包问题是DP中较为简单的一类，要想学好DP，就应该多刷题，以此总结经验。我是faryou，再见！</p></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【C语言】指针的理解与应用</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-39"><h2>【C语言】指针的理解与应用</h2><h4>时间：2025-08-31 09:40:00</h4><div class="article-category">分类：编程技术 → C/C++</div><div class="article-tags">标签：<a href="tech-tag-9-1.html">#C/C++</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>指针是很多人在学习C语言路上所遇到的一个极难的障碍，有许多人都因为无法理解指针而放弃了学习C语言。我个人一开始也是完全无法理解指针，在刻苦钻研半年后，我终于完全理解了指针这一语法难点。下面我就指针的理解与应用进行详细的讲解~~</p>
+<h1>指针是什么</h1>
+<p>很多初学者可能无法理解这些问题：指针是什么？为什么要用指针？用指针有什么好外？为什么scanf里的参数要用指针，而printf却要用变量名？<br />
+首先，指针本身是个变量，存储内容是一个地址，这一点已经令人很难理解了。我们需要明白，所谓“内存条”物理上真的就是一条，各种数据占据了不同的位数。因此，我们可以给每个内存都标一个地址，这样计算机就能更好地访问数据（别问我为什么，可以自己想一下，如果全世界都没有门牌号，你访问某人的家会不会更麻烦）。地址（指针）是十六进制数，标号顺序相当于从0号开始不断增加，说的明白些，地址就是从内存条第一格开始数，到当前格是几格。<br />
+如果你有了一个变量的指针，那么你就可以用指针来访问这个地址来改变其值，那这样来说，我们是否可以直接用地址来访问并更改某个变量呢？答案是肯定的。下面是一个例子：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+main(){
+    int a=0;
+    int *p=&amp;a;/*定义指针变量p，并赋值为a的地址*/
+    *p=1;
+    printf("%d",a);/*输出结果应为1*/
+    return 0;
+}</code></pre>
+<p>在C语言中，用*指针变量名的形式表示指针变量指向地址的值。<br />
+这样我们就可以解释为什么printf的参数是变量的值，而scanf的参数是指针了：printf输出变量时只需要变量的值，与变量的地址无关；而scanf则要改变变量的值，只有变量的值并不能改变它，必须得到它的地址。</p>
+<h1>用指针写个函数</h1>
+<p>指针的用处非常大，下面我们用指针写个简单的小程序：交换变量值的函数。</p>
+<pre><code class="language-c">/*不批注了，自己看吧*/
+#include &lt;stdio.h&gt;
+void swap(int *a,int *b){
+    int t;
+    t=*a;
+    *a=*b;
+    *b=t;
+    return ;
+}
+main(){
+    int x,y;
+    scanf("x=%d,y=%d",&amp;x,&amp;y);
+    swap(&amp;x,&amp;y);
+    printf("x=%d,y=%d",x,y);
+    return 0;
+}</code></pre>
+<p>但是如果把程序写成下面这样：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+void swap(int a,int b){
+    int t;
+    t=a;
+    a=b;
+    b=t;
+    return ;
+}
+main(){
+    int x,y;
+    scanf("x=%d,y=%d",&amp;x,&amp;y);
+    swap(a,b);
+    printf("x=%d,y=%d",x,y);
+    return 0;
+}</code></pre>
+<p>那么x和y的值最后不会被交换，因为swap函数里的代码只是交换了参数a,b的值，作用域在函数内，对main函数里的变量没有任何影响。</p>
+<h1>指针进阶版——函数指针</h1>
+<p>指针可以指向变量，那么也可以指向函数，下面是一个示例：</p>
+<pre><code class="language-c">/*使用指针变量及可变参数，写一个任意参数数量的比较程序*/
+#include &lt;stdio.h&gt;
+#include &lt;stdarg.h&gt;
+int compare(int (*cmp)(int,int),int num,...){
+    va_list valist;
+    va_start(valist,num);
+    int ans=va_arg(valist,int),i=0;
+    while(++i&lt;=num) ans=cmp(ans,va_arg(va_list,int));
+    return ans;
+}
+/*下面定义了两个常用cmp函数(取大值和取小值)*/
+int MAX_CMP(int a,int b){
+    if(a&gt;=b) return a;
+    else return b;
+}
+int MIN_CMP(int a,int b){
+    if(a&lt;=b) return a;
+    else return b;
+}
+/*也可以自定义需要的cmp函数*/
+main(){
+    int t,a,b,c,d;
+    scanf("%d%d%d%d%d",&amp;t,&amp;a,&amp;b,&amp;c,&amp;d);
+    switch(t){/*用户选择取最大、最小值*/
+        case 1:
+            printf("%d",compare(MAX_CMP,4,a,b,c,d);
+            break;
+        case 2:
+            printf("%d",compare(MIN_CMP,4,a,b,c,d);
+            break;
+    }
+    return 0;
+}</code></pre>
+<p>（这个compare函数可以自己开个文档存着，需要时拿出来微调一下即可~）</p>
+<h1>结语</h1>
+<p>本文介绍了C语言中对指针的使用，用简单的程序帮助学习者了解指针的用法。我是faryou，下次见！（好久没写正经的文章了，肝了一个多小时，还是用平板写，心疼下高中生吧~）</p></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【算法教程】【C/C++】DFS（深度优先搜索）——程序设计思路与代码实现</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-36"><h2>【算法教程】【C/C++】DFS（深度优先搜索）——程序设计思路与代码实现</h2><h4>时间：2024-11-14 16:54:00</h4><div class="article-category">分类：编程技术 → 算法类</div><div class="article-tags">标签：<a href="tech-tag-9-1.html">#C/C++</a> <a href="tech-tag-10-1.html">#算法</a> <a href="tech-tag-17-1.html">#算法基础教程系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>搜索是算法学习者经常会用的一种算法，本质上是暴力算法的一种优化。我们在初期经常会用到BFS和DFS。今天我们来学习DFS。</p>
+<h1>什么是递归</h1>
+<p>简单来说，就是函数自己调用自己。因为函数在运行过程中产生的数据通常是存放在栈中的，所以它可以在递归开始返回后将最后一次入栈的数据出栈，再回到上一个程序。来看一个具体的例子：<br />
+<img src="https://pic.faryou.eu.org/i/2026/08/11/wcn2u0.png" alt="3887289416" /><br />
+本题很简单，但是也可以不用循环做，可以使用递归：</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+
+int times(int n){//递归程序
+    if(n==1) return 1;
+    else return n*times(n-1);//自己调用自己
+}
+
+int main(){
+    int n;
+    scanf("%d",&amp;n);
+    printf("%d",times(n));
+    return 0;
+}</code></pre>
+<p>这里程序在函数中不断调用自己，直到n=1时开始回归，巧妙的实现了从1乘到n。<br />
+需要注意的是，递归在使用过程中会有损耗，故在时间复杂度相同时会慢于普通循环。</p>
+<h1>程序设计思路</h1>
+<p>首先我们要明白搜索都是基于树论的。你想要使用搜索，就必须先自己构造出一棵树。<br />
+<img src="https://pic.faryou.eu.org/i/2026/08/11/wcoh03.png" alt="1866550706" /><br />
+如上图所示，就是一棵树的图形表示。<br />
+与BFS不同，DFS的原则是“不撞南墙不回头”，因此如果使用DFS对上面的树进行搜索，顺序应该是：2→7→1→6→5→3→8→9→4。<br />
+由于图片中展示的是一棵二叉树，而实际问题中树的子树数量不是固定的，所以通常会使用递归的方式写程序。</p>
+<h1>代码实现</h1>
+<p>下面是一个例子：<br />
+<img src="https://pic.faryou.eu.org/i/2026/08/11/x2rz6r.png" alt="4135955353" /><br />
+这是一道典型的DFS的题目。在这题中，由于两个皇后肯定不会在同一行，我们可以对每一行可能出现的情况进行枚举，再进行判断。于是问题就变成了要遍历n棵n叉树并判断。下面是代码——</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int n,ans=0,out[14];//ans用于累加，out数组存放要输出的答案
+bool flag;//用于记录是否有答案
+
+void dfs(int step){//step为行数
+    if(step&gt;n){//出口程序
+        ans++;
+        if(ans&lt;=3){//输出前三个答案
+            for(int i=1;i&lt;=n;i++) printf("%d ",out[i]);
+            printf("\n");
+        }
+    }
+    for(int i=1;i&lt;=n;i++){
+        flag=true;//初始化flag
+        for(int j=1;j&lt;step;j++) if(out[j]==i || abs(i-out[j])==step-j){//前一个条件判断纵向，后一个条件判断是否处于同一45°角上。
+            flag=false;//当不满足条件时，将答案标记为错误并直接跳出循环不再判断（剪枝）
+            break;
+        }//用之前放置的所有皇后进行判断
+        if(!flag)continue;//当答案不正确时，进入下一循环
+        out[step]=i;//存下答案
+        dfs(step+1);//进行下一层判断
+    }
+    return ;
+}
+
+int main(){
+    scanf("%d",&amp;n);
+    dfs(1);
+    printf("%d",ans);
+    return 0;
+}</code></pre>
+<p>这里我们使用递归不断调用自己，达到一个函数搞定的效果。再来看一个例子：<br />
+<img src="https://pic.faryou.eu.org/i/2026/08/11/wac5xo.png" alt="3491630200" /><br />
+这题也是经典的地图搜索题，上代码：</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+
+int r,c,n,a,b,iq[1010];//r、c、n如题意，a、b用来存放起点坐标，iq[i]为第i次操作的方向编号（1、2、3、4分别代表东、南、西、北）
+char Map[55][55],input[6];//Map用于存地图，input用来输出操作的内容
+bool ans[55][55],flag[55][55][1010];//ans存放能否到达坐标对应点，flag[i][j][k]存放是否在第k步到达(i,j)（记忆化）
+void dfs(int num,int x,int y){//num代表递归层数，x、y代表要进行搜索的坐标
+    if(flag[x][y][num]) return ;//如果当前点已经算过则返回
+    if(num&gt;=n){//当层数大于步数时退出计算
+        ans[x][y]=true;
+        return ;
+    }//以下为分类讨论
+    int i=x,j=y;
+    if(iq[num]==1) while(1){//当下一步向东走时，横坐标不断加1直到超界或撞墙
+        j++;//一步一步走
+        if(j&gt;=c || Map[x][j]=='X') break;//判断超界或撞墙
+        dfs(num+1,x,j);//计算下一步
+    }
+    if(iq[num]==2) while(1){//同上
+        i++;
+        if(i&gt;=r || Map[i][y]=='X') break;
+        dfs(num+1,i,y);
+    }
+    if(iq[num]==3) while(1){//同上
+        j--;
+        if(j&lt;0 || Map[x][j]=='X') break;
+        dfs(num+1,x,j);
+    }
+    if(iq[num]==4) while(1){//同上
+        i--;
+        if(i&lt;0 || Map[i][y]=='X') break;
+        dfs(num+1,i,y);
+    }
+    flag[x][y][num]=true;//将当前位置标记为已走过
+    return ;
+}
+
+int main(){
+    scanf("%d%d",&amp;r,&amp;c);
+    for(int i=0;i&lt;r;i++) for(int j=0;j&lt;c;j++) ans[i][j]=false;
+    for(int i=0;i&lt;r;i++) scanf("%s",Map[i]);
+    for(int i=0;i&lt;r;i++) for(int j=0;j&lt;c;j++) if(Map[i][j]=='*'){
+        a=i;
+        b=j;
+    }
+    scanf("%d",&amp;n);
+    for(int i=0;i&lt;r;i++) for(int j=0;j&lt;c;j++) for(int k=0;k&lt;n;k++) flag[i][j][k]=false;
+    for(int i=0;i&lt;n;i++){//每读入一个操作就转义为数字操作编号
+        scanf("%s",input);
+        if(input[0]=='E') iq[i]=1;
+        if(input[0]=='S') iq[i]=2;
+        if(input[0]=='W') iq[i]=3;
+        if(input[0]=='N') iq[i]=4;
+    }
+    dfs(0,a,b);//从(a,b)出发
+    for(int i=0;i&lt;r;i++){//输出
+        for(int j=0;j&lt;c;j++){
+            if(Map[i][j]=='X') printf("X");
+            else if(ans[i][j]) printf("*");//如果该点可以到达，输出'*'
+            else printf(".");
+        }
+        printf("\n");
+    }
+    return 0;
+}</code></pre>
+<p>这题要我们对地图进行计算，还是很好理解的。这里我加上了记忆化，效率更高。</p>
+<h1>DFS的优化——剪枝</h1>
+<p>剪枝，顾名思义，就是通过程序方法直接排除一些子树，以求提高效率。主要分为可行性剪枝和奇偶性剪枝。<br />
+可行性剪枝，就是从题目意义上将某些不可能的情况排除。比如说，要计算一个人能不能在规定时间刚刚好走到某个格子（路线不能重复），如果你在搜索的过程中碰到一种情况：这张地图上所有格子的总数比单位时间内可以走的路程还要少，那根本就不用算了，直接false！<br />
+还有一种奇偶性剪枝。我们可以将一张地图看成这样：</p>
+<blockquote>
+<p>0    1    0    1    0    1    0    1<br />
+1    0    1    0    1    0    1    0<br />
+0    1    0    1    0    1    0    1<br />
+1    0    1    0    1    0    1    0<br />
+0    1    0    1    0    1    0    1<br />
+1    0    1    0    1    0    1    0<br />
+0    1    0    1    0    1    0    1<br />
+1    0    1    0    1    0    1    0</p>
+</blockquote>
+<p>在这张图上，从0走到1或从1走到0肯定要奇数步，从0走到0或从1走到1肯定要偶数步。所以如果碰到这种平面图算步数的搜索题也可以直接用奇偶性pass一部分。<br />
+剪枝的具体代码可以是多样化的，但是其中心目的只有一个——减少搜索量。</p>
+<h1>记忆化DFS</h1>
+<p>DFS在调用的递归嵌套过多时会爆栈，因此我们可以为其加上记忆化以防超界。记忆化是指在一棵树中，可能会有重复的子树，导致重复计算，所以我们可以使用数组将一种情况记录下来，下次再碰到这个情况直接跳过计算，以减少调用。<br />
+记忆化DFS是一种以更高的空间复杂度换取更低的时间复杂度的方法。当代码面临TLE时，不妨试试加上记忆化。例如上面案例中的第二题就是利用了flag数组，减少了运算量。当然，在加记忆化时也要注意空间复杂度不能过高，否则爆空间~</p>
+<h1>总结</h1>
+<p>从理论上来说，DFS和DP问题是可以互相转化的，只要学好一个，两者的问题都能解决。所以，如果你还在为了列出状态转移方程而苦恼，不妨试试用DFS的思路去思考DP问题。不过，普通的DFS容易因循环过多而爆栈，为了解决这个问题，我们需要用到优化版DFS——记忆化DFS。我是faryou，再见！</p></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

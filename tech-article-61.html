@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编&amp;硬件】网络连接相关中断的具体实现</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-61"><h2>【汇编&amp;硬件】网络连接相关中断的具体实现</h2><h4>时间：2026-03-21 13:37:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-7-1.html">#汇编 - 硬件系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>在8086汇编环境中，网络连接功能通常依赖硬件（如网卡）和底层协议（如TCP/IP简化版），且8086本身无原生网络支持，需通过外接网卡及端口操作实现。以下是一个模拟网络连接中断的简化实现，包含基本的连接建立、数据发送/接收功能，基于假设的网卡端口和简化协议，供学习参考。</p>
+<h1>代码实现</h1>
+<pre><code class="language-x86asm">; 常量定义（假设的网卡端口和状态码）
+NET_CTRL_PORT equ 0300h ; 网卡控制端口
+NET_DATA_PORT equ 0301h ; 网卡数据端口
+NET_STATUS_PORT equ 0302h ; 网卡状态端口
+NET_CONNECTED equ 01h ; 连接成功状态
+NET_DISCONNECTED equ 00h ; 断开状态
+NET_DATA_READY equ 02h ; 数据就绪状态
+
+code segment
+    assume cs:code, ds:data
+
+; 网络连接中断服务程序（入口：AH=功能号）
+; 功能：
+; AH=00h：建立网络连接（DX=目标IP地址低16位，CX=目标端口）
+; AH=01h：断开网络连接
+; AH=02h：发送数据（SI=数据缓冲区地址，CX=数据长度）
+; AH=03h：接收数据（DI=接收缓冲区地址，CX=最大接收长度，返回CX=实际长度）
+; AH=04h：获取连接状态（返回AL=状态：0=断开，1=连接）
+net_int proc far
+    push ax
+    push bx
+    push cx
+    push dx
+    push si
+    push di
+    push es
+    push ds ; 保存所有寄存器
+    push bp
+    mov bp, sp
+
+    ; 根据功能号跳转处理
+    cmp ah, 00h
+    je net_connect ; 建立连接
+    cmp ah, 01h
+    je net_disconnect ; 断开连接
+    cmp ah, 02h
+    je net_send ; 发送数据
+    cmp ah, 03h
+    je net_recv ; 接收数据
+    cmp ah, 04h
+    je net_get_status ; 获取状态
+    jmp int_end ; 不支持的功能
+
+; 功能00h：建立网络连接
+; 入口：DX=目标IP（低16位），CX=目标端口
+; 原理：向网卡发送连接请求，等待响应
+net_connect:
+    ; 保存目标IP和端口
+    mov [dest_ip], dx
+    mov [dest_port], cx
+
+    ; 向网卡控制端口发送连接命令（假设命令01h）
+    mov al, 01h
+    out NET_CTRL_PORT, al
+
+    ; 等待网卡响应（轮询状态端口）
+    mov cx, 0FFFFh ; 超时计数
+wait_connect:
+    in al, NET_STATUS_PORT
+    test al, NET_CONNECTED
+    jnz connect_ok ; 连接成功
+    loop wait_connect
+    jmp int_end ; 超时失败
+
+connect_ok:
+    mov [net_state], NET_CONNECTED ; 更新状态为连接
+    jmp int_end
+
+; 功能01h：断开网络连接
+; 操作：发送断开命令，重置连接状态
+net_disconnect:
+    mov al, 02h ; 断开命令（假设02h）
+    out NET_CTRL_PORT, al
+    mov [net_state], NET_DISCONNECTED ; 更新状态为断开
+    jmp int_end
+
+; 功能02h：发送数据
+; 入口：SI=数据缓冲区，CX=数据长度（&lt;=255）
+; 操作：逐个字节写入数据端口
+net_send:
+    cmp [net_state], NET_CONNECTED
+    jne int_end ; 未连接则退出
+
+    mov bl, cl ; BL保存长度
+    mov bh, 0
+    mov si, si ; SI指向数据
+
+send_loop:
+    mov al, [si] ; 读取数据字节
+    out NET_DATA_PORT, al ; 写入网卡
+    inc si
+    dec bl
+    jnz send_loop
+    jmp int_end
+
+; 功能03h：接收数据
+; 入口：DI=接收缓冲区，CX=最大长度；返回：CX=实际接收长度
+; 操作：从数据端口读取可用数据
+net_recv:
+    cmp [net_state], NET_CONNECTED
+    jne int_end ; 未连接则退出
+
+    in al, NET_STATUS_PORT
+    test al, NET_DATA_READY
+    jz recv_end ; 无数据则退出
+
+    mov bl, 0 ; BL计数实际长度
+recv_loop:
+    in al, NET_DATA_PORT ; 从网卡读取数据
+    mov [di], al
+    inc di
+    inc bl
+    dec cx
+    jz recv_end ; 达到最大长度
+    ; 检查是否还有数据（简化：假设一次读完）
+    in al, NET_STATUS_PORT
+    test al, NET_DATA_READY
+    jnz recv_loop
+
+recv_end:
+    mov cx, bx ; 返回实际接收长度
+    jmp int_end
+
+; 功能04h：获取连接状态
+; 返回：AL=当前状态（0=断开，1=连接）
+net_get_status:
+    mov al, [net_state]
+    jmp int_end
+
+; 中断结束：恢复寄存器并返回
+int_end:
+    pop bp
+    pop ds
+    pop es
+    pop di
+    pop si
+    pop dx
+    pop cx
+    pop bx
+    pop ax
+    iret ; 中断返回
+net_int endp
+
+; 安装自定义网络中断向量（使用int 61h，用户自定义中断）
+install proc
+    cli ; 关中断，防止安装冲突
+    mov ax, 0
+    mov es, ax ; ES指向中断向量表（0段）
+    mov di, 61h*4 ; int 61h向量地址：61h×4=0000:0184
+    mov ax, offset net_int ; 中断服务程序偏移地址
+    stosw ; 写入偏移量
+    mov ax, cs ; 中断服务程序段地址
+    stosw ; 写入段地址
+    sti ; 开中断
+    ret
+install endp
+
+; 主程序：测试网络连接功能
+main:
+    mov ax, data
+    mov ds, ax ; 初始化数据段
+
+    call install ; 安装网络中断
+
+    ; 测试1：建立连接（目标IP=0A0A0A0A（模拟10.10.10.10），端口=80）
+    mov ah, 00h
+    mov dx, 0A0A0h ; IP低16位（0A0A）
+    mov cx, 80 ; 端口80
+    int 61h
+
+    ; 测试2：发送数据（"Hello"）
+    mov ah, 02h
+    mov si, offset send_buf
+    mov cx, 5 ; 长度5
+    int 61h
+
+    ; 测试3：接收数据（最多10字节）
+    mov ah, 03h
+    mov di, offset recv_buf
+    mov cx, 10
+    int 61h ; 返回CX=实际长度
+
+    ; 测试4：获取状态并显示（简化：通过字符表示）
+    mov ah, 04h
+    int 61h
+    cmp al, NET_CONNECTED
+    jne show_disconnected
+    ; 连接成功，显示'C'
+    mov ah, 09h
+    mov al, 'C'
+    mov bl, 07h
+    mov cx, 1
+    int 10h
+    jmp end_test
+show_disconnected:
+    ; 断开，显示'D'
+    mov ah, 09h
+    mov al, 'D'
+    mov bl, 07h
+    mov cx, 1
+    int 10h
+
+end_test:
+    ; 断开连接
+    mov ah, 01h
+    int 61h
+
+    jmp $ ; 暂停
+
+code ends
+
+; 数据段：保存网络状态和缓冲区
+data segment
+    net_state db NET_DISCONNECTED ; 网络状态（0=断开，1=连接）
+    dest_ip dw 0 ; 目标IP地址（低16位）
+    dest_port dw 0 ; 目标端口
+    send_buf db 'Hello' ; 发送缓冲区
+    recv_buf db 10 dup(0) ; 接收缓冲区（最大10字节）
+data ends
+
+    end main</code></pre>
+<h1>代码说明</h1>
+<ol>
+<li>硬件抽象：假设网卡通过3个端口（控制、数据、状态）与CPU通信，定义了连接、断开等命令及状态码，模拟真实网卡的交互逻辑。  </li>
+<li>中断功能：实现了网络连接的核心操作：a.建立/断开连接：通过控制端口发送命令，轮询状态判断结果。b.发送/接收数据：通过数据端口读写字节，限制长度以简化处理。c.状态查询：返回当前连接状态（连接/断开）。  </li>
+<li>中断安装：使用用户自定义中断号（int 61h），修改中断向量表指向自定义服务程序，安装时关中断保证原子性。  </li>
+<li>测试逻辑：主程序依次测试连接建立、数据发送、接收及状态查询，并通过屏幕显示状态（'C'表示连接，'D'表示断开）。</li>
+</ol></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

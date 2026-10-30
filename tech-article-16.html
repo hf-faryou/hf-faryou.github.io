@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 使用易语言编写通讯软件的思路及代码实现</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-16"><h2>使用易语言编写通讯软件的思路及代码实现</h2><h4>时间：2023-10-11 20:05:00</h4><div class="article-category">分类：编程技术 → 易语言</div><div class="article-tags">标签：<a href="tech-tag-12-1.html">#易语言</a> <a href="tech-tag-15-1.html">#程序思路</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>本来我写过一个易语言基础教程，但是后来感觉大家似乎对此都不太有评论，也没什么回应。个人认为主要有两个原因：一是易语言使用中文，本身挺好懂的；二是没有真正的需要去动脑的内容。于是我决定推出这篇文章，带大家写一个易语言程序，开阔开阔思路。</p>
+<h1>通讯功能实现思路（后端）</h1>
+<p>易语言实现通讯有两种方式：客户-服务端、数据报。这里主要讲第一种。各位可以先看一下HF通讯，就是采用这种方式编写的。</p>
+<h2>客户-服务端</h2>
+<p>首先，需要有两个组件：客户、服务端。因为是聊天软件， 所以不需要分两个客户端分别编写。<br />
+服务端：服务端在编写时需要获得主机名、端口号等信息，写起来会麻烦一些。下面是思路：首先添加组件（无需调整位置大小，因为不会出现在前端），然后编写一段获取主机信息的代码，作为之后连接到客户的参数。然后编写发送数据代码即可。<br />
+客户：客户组件在编写程序时只需要有连接服务端代码、发送数据代码即可。<br />
+这种方式更为稳定，可以传输大文件，适用于内网文件传输，发消息配置起来有些复杂（有点大材小用），不推荐。内网聊天可以试试数据报方式。</p>
+<h2>数据报</h2>
+<p>首先添加数据报组件。<br />
+由于数据报阉割了客户-服务端的功能，所以不能进行大数据传输。添加控制接收端参数的代码，然后再加入发送数据的功能对接到前端即可。</p>
+<h2>UI设计思路（前端）</h2>
+<p>UI可以自己设计，此处仅根据HF通讯的UI进行讲解，仅供参考。</p>
+<h2>美化</h2>
+<p>因为易语言本身对前端的优化很不好，所以尽量自己P图。我审美太差，就不细说了，大家自己设计设计。</p>
+<h1>主要组件</h1>
+<h2>1.发送编辑框</h2>
+<p>在HF通讯中，编辑框被放到了界面的最左下角。当然，如果你有自己的想法，比如放在右下角（和微信一样）。注意编写程序时对接到“发送数据”。</p>
+<h2>2.发送按钮</h2>
+<p>在HF通讯中，发送按钮在编辑框的右侧紧挨着。这个其实更符合自己的操作逻辑，当然，如果你放到下面也可以。注意编写程序时对接到“发送数据”。</p>
+<h2>3.消息框</h2>
+<p>消息框放在编辑框的上面，应该是各大通讯软件共有的UI设计。在HF通讯中，我使用了编辑框组件，并禁用了编辑功能。可以在消息框后放背景图用于美化。注意在编写程序时对接到“接收数据”。</p>
+<h2>4.发送音频/视频/图片/其他文件功能按钮</h2>
+<p>在HF通讯中，这些按钮在右侧排列，并对接到了各发送窗口，输入路径即可发送。注意在编写程序时转化到“字节集”类型并对接到“发送数据”，发送文件名。</p>
+<h2>5.播放按钮</h2>
+<p>在HF通讯中，播放按钮与发送按钮并列，以获取到的文件名打开。注意在编写程序时对接到“接收数据”。<br />
+其他还有一些组件/窗口，由于不很重要（非程序主体），我就不介绍了，大家自行探索。</p></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>

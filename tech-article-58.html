@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>faryou的博客 - 【汇编&amp;硬件】屏幕输出中断的具体实现</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="平平淡淡 从从容容才是真~~">
+<meta name="keywords" content="博客,个人,怀旧,技术">
+<link rel="stylesheet" href="includes/highlight/default.min.css">
+<script src="includes/highlight/highlight.min.js"></script>
+<script src="includes/highlight/x86asm.min.js"></script>
+<script src="includes/highlight/armasm.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function(){ hljs.highlightAll(); });</script>
+</head>
+<body>
+<div id="container">
+  <div id="header"><h1>faryou的博客</h1></div>
+  <div id="nav"><a href="index.html">首页</a>&nbsp;|&nbsp;<a href="life.html">生活</a>&nbsp;|&nbsp;<a href="tech.html">技术</a>&nbsp;|&nbsp;<a href="diary.html">日记</a>&nbsp;|&nbsp;<a href="friendlinks.html">友链</a>&nbsp;|&nbsp;<a href="archive.html">归档</a>&nbsp;|&nbsp;<a href="about.html">关于</a></div>
+  <div id="main-row">
+    <div id="sidebar"><h3>分类</h3><ul><li><a href="tech-category-2-1.html">数码折腾</a></li><li><a href="tech-category-9-1.html">程序作品</a></li><li><a href="tech-category-1-1.html">编程技术</a></li></ul><h3>标签</h3><ul><li><a href="tech.html">全部</a></li><li><a href="tech-tag-9-1.html">C/C++</a></li><li><a href="tech-tag-11-1.html">PHP</a></li><li><a href="tech-tag-13-1.html">建站相关</a></li><li><a href="tech-tag-4-1.html">操作系统</a></li><li><a href="tech-tag-3-1.html">数码</a></li><li><a href="tech-tag-12-1.html">易语言</a></li><li><a href="tech-tag-14-1.html">易语言基础教程系列</a></li><li><a href="tech-tag-2-1.html">汇编</a></li><li><a href="tech-tag-6-1.html">汇编 - 功能系列</a></li><li><a href="tech-tag-7-1.html">汇编 - 硬件系列</a></li><li><a href="tech-tag-8-1.html">汇编基础教程系列</a></li><li><a href="tech-tag-15-1.html">程序思路</a></li><li><a href="tech-tag-10-1.html">算法</a></li><li><a href="tech-tag-17-1.html">算法基础教程系列</a></li><li><a href="tech-tag-1-1.html">编程语言</a></li><li><a href="tech-tag-16-1.html">老系统复活系列</a></li><li><a href="tech-tag-5-1.html">虚拟机</a></li></ul><h3>关于本站</h3><div style="font-size:12px; color:#666; line-height:1.6; padding:4px 0; border-top:1px dashed #CCCCCC; margin-top:4px;">本站是我博客的静态化镜像站。我会时不时进行推送，以保证它继承了原站的所有内容。也许有一天，我离开了这个世界，我的博客也随之而消逝在时间的汪洋之中，这个网站将成为我来过这个世界上的证据。正如你所见，它以life作为域名的前缀，只要它还在，我就一直活着，以另一种方式。</div><h3>我的网站</h3>
+<ul>
+    <li><a href='https://faryou.eu.org' target='_blank'>个人主页</a></li>
+    <li><a href='https://blog.faryou.eu.org'>博客（本站）</a></li>
+</ul>
+
+<h3>博客组织</h3>
+<ul>
+    <li><a href='https://www.travellings.cn/go.html' target='_blank'>开往</a></li>
+    <li><a href='https://www.boyouquan.com/home' target='_blank'>博友圈</a></li>
+    <li><a href='https://www.blogsclub.org' target='_blank'>BlogsClub</a></li>
+</ul>
+
+<h3>友链</h3>
+<ul>
+                <li>
+            <a href="https://blog.leonus.cn/" target="_blank" title="">
+                Leonus            </a>
+        </li>
+            <li>
+            <a href="https://blog.lvbyte.top/" target="_blank" title="">
+                字节君的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.hjz0713.cn/" target="_blank" title="">
+                HJZ的博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.dzlog.com" target="_blank" title="">
+                曾先生博客            </a>
+        </li>
+            <li>
+            <a href="https://www.zoujiang.com" target="_blank" title="">
+                邹江博客            </a>
+        </li>
+            <li>
+            <a href="https://blog.zhheo.com" target="_blank" title="">
+                张洪Heo            </a>
+        </li>
+            <li>
+            <a href="https://lxnchan.cn" target="_blank" title="">
+                泠泫凝的异次元空间            </a>
+        </li>
+            <li>
+            <a href="https://www.hsuyeung.com/" target="_blank" title="">
+                Hsu Yeung 的博客            </a>
+        </li>
+            <li>
+            <a href="https://lb5.net/" target="_blank" title="">
+                小野博客            </a>
+        </li>
+            <li>
+            <a href="https://9sb.net/" target="_blank" title="">
+                记录生活，精彩一刻            </a>
+        </li>
+            <li>
+            <a href="https://zhoutian.com" target="_blank" title="">
+                周天记            </a>
+        </li>
+            <li>
+            <a href="https://xiaoshishi.cn" target="_blank" title="">
+                小柿柿的网站            </a>
+        </li>
+            <li>
+            <a href="https://me.xu19.com" target="_blank" title="">
+                我是军爸            </a>
+        </li>
+            <li>
+            <a href="https://www.xiguacaizimi.top" target="_blank" title="">
+                西瓜猜字谜            </a>
+        </li>
+            <li>
+            <a href="https://cuixiping.com/" target="_blank" title="">
+                崔话记            </a>
+        </li>
+            <li>
+            <a href="http://blog.xgorb.cn" target="_blank" title="一座互联网边缘的个人小站，记录技术感悟、生活随想与点滴思考。">
+                X-GORB Blog            </a>
+        </li>
+            <li>
+            <a href="https://note.redcha.cn" target="_blank" title="">
+                彬红茶日记            </a>
+        </li>
+            <li>
+            <a href="https://blog.mfwt.top/" target="_blank" title="">
+                枫林灯语            </a>
+        </li>
+            <li>
+            <a href="https://xyzbz.cn" target="_blank" title="">
+                网友小宋            </a>
+        </li>
+    </ul></div>
+    <div id="content"><div class="diary-article" id="article-58"><h2>【汇编&amp;硬件】屏幕输出中断的具体实现</h2><h4>时间：2026-02-27 19:39:00</h4><div class="article-category">分类：编程技术 → 汇编语言</div><div class="article-tags">标签：<a href="tech-tag-2-1.html">#汇编</a> <a href="tech-tag-7-1.html">#汇编 - 硬件系列</a> </div><hr class="article-divider"><div class="article-content"><h1>前言</h1>
+<p>在8086汇编中，屏幕输出常用的中断是int 10h（BIOS视频服务中断），其功能涵盖文字模式（如文本显示）和图形模式（可模拟简单视频输出）。以下实现一个模拟int 10h核心功能的自定义屏幕输出中断程序，支持文字模式字符显示、光标控制和图形模式像素点绘制，并添加详细注释。</p>
+<h1>代码实现</h1>
+<pre><code class="language-x86asm">; 常量定义
+VIDEO_SEG_TEXT equ 0b800h ; 文本模式显存段地址（80x25彩色文本）
+VIDEO_SEG_GRAPH equ 0a000h ; 图形模式显存段地址（320x200 256色）
+MAX_ROW_TEXT equ 24 ; 文本模式最大行号（0-24）
+MAX_COL_TEXT equ 79 ; 文本模式最大列号（0-79）
+CURSOR_PORT_H equ 03d4h ; 光标控制端口（高8位）
+CURSOR_PORT_L equ 03d5h ; 光标控制端口（低8位）
+
+code segment
+    assume cs:code, ds:data
+
+; 自定义屏幕输出中断服务程序（入口：AH=功能号）
+; 功能：
+; AH=00h：设置显示模式（0=文本模式，13h=320x200图形模式）
+; AH=02h：设置光标位置（BH=页号，DH=行，DL=列）
+; AH=09h：在当前位置显示字符（AL=字符，BH=页号，BL=属性，CX=重复次数）
+; AH=0Ch：图形模式画点（AL=颜色，CX=X坐标，DX=Y坐标）
+video_int proc far
+    push ax
+    push bx
+    push cx
+    push dx
+    push si
+    push di
+    push es
+    push ds ; 保存所有寄存器
+    push bp
+    mov bp, sp ; 建立栈帧（便于访问参数）
+
+    ; 读取功能号（AH），跳转至对应处理逻辑
+    cmp ah, 00h
+    je set_mode ; 设置显示模式
+    cmp ah, 02h
+    je set_cursor ; 设置光标位置
+    cmp ah, 09h
+    je print_char ; 文本模式显示字符
+    cmp ah, 0Ch
+    je draw_pixel ; 图形模式画点
+    jmp int_end ; 不支持的功能，直接返回
+
+; 功能00h：设置显示模式
+; 入口：AL=模式号（0=80x25文本，13h=320x200图形）
+set_mode:
+    ; 保存当前模式（实际中可存入内存变量）
+    mov [current_mode], al
+    ; 调用BIOS原int 10h完成硬件模式切换（简化处理，实际需直接操作显卡端口）
+    int 10h
+    jmp int_end
+
+; 功能02h：设置光标位置（仅文本模式有效）
+; 入口：BH=页号（文本模式），DH=行号，DL=列号
+set_cursor:
+    ; 检查当前模式是否为文本模式（0）
+    cmp byte ptr [current_mode], 0
+    jne int_end ; 非文本模式不处理
+
+    ; 计算光标位置（80列/行，公式：位置=行*80 + 列）
+    mov al, dh ; AL=行号
+    mov cl, 80 ; CL=每行字符数
+    mul cl ; AX=行*80
+    add ax, dx ; AX=行*80 + 列（光标位置）
+
+    ; 向光标端口写入位置（高8位+低8位）
+    mov dx, CURSOR_PORT_H ; 端口：光标高8位
+    mov al, 0Eh ; 命令：设置光标高8位
+    out dx, al
+    mov dx, CURSOR_PORT_L ; 端口：光标低8位
+    mov al, ah ; 高8位数据
+    out dx, al
+
+    mov dx, CURSOR_PORT_H
+    mov al, 0Fh ; 命令：设置光标低8位
+    out dx, al
+    mov dx, CURSOR_PORT_L
+    mov al, al ; 低8位数据（AX低8位）
+    out dx, al
+    jmp int_end
+
+; 功能09h：文本模式显示字符
+; 入口：AL=字符，BH=页号，BL=属性（高4位背景，低4位前景），CX=重复次数
+print_char:
+    cmp byte ptr [current_mode], 0
+    jne int_end ; 非文本模式不处理
+
+    ; 获取当前光标位置（简化：从内存变量读取，实际应读光标端口）
+    mov dh, [cursor_row] ; DH=当前行
+    mov dl, [cursor_col] ; DL=当前列
+
+    ; 计算显存地址：文本模式显存 = 0b800h:[(行*80 + 列)*2]
+    mov ax, VIDEO_SEG_TEXT
+    mov es, ax ; ES=显存段地址
+    mov al, dh
+    mov cl, 80
+    mul cl ; AX=行*80
+    add ax, dx ; AX=行*80 + 列
+    shl ax, 1 ; AX=地址偏移量（每个字符占2字节：ASCII+属性）
+    mov di, ax ; DI=显存偏移
+
+    ; 循环显示字符（CX=重复次数）
+print_loop:
+    mov es:[di], al ; 写入字符ASCII码
+    mov es:[di+1], bl ; 写入属性（颜色）
+    add di, 2 ; 下一个字符位置
+    inc dl ; 列号+1
+    cmp dl, MAX_COL_TEXT+1 ; 判断是否超出列边界
+    jle next_char
+    mov dl, 0 ; 列号归零
+    inc dh ; 行号+1
+    cmp dh, MAX_ROW_TEXT+1 ; 判断是否超出行边界
+    jle next_char
+    mov dh, 0 ; 行号归零（滚屏简化处理）
+next_char:
+    loop print_loop
+
+    ; 更新光标位置
+    mov [cursor_row], dh
+    mov [cursor_col], dl
+    jmp int_end
+
+; 功能0Ch：图形模式画点（320x200 256色）
+; 入口：AL=颜色，CX=X坐标（0-319），DX=Y坐标（0-199）
+draw_pixel:
+    cmp byte ptr [current_mode], 13h
+    jne int_end ; 非13h图形模式不处理
+
+    ; 计算像素地址：320x200模式下，地址=Y*320 + X
+    mov ax, VIDEO_SEG_GRAPH
+    mov es, ax ; ES=图形显存段地址
+    mov ax, dx ; AX=Y坐标
+    mov bx, 320
+    mul bx ; AX=Y*320
+    add ax, cx ; AX=Y*320 + X（像素偏移量）
+    mov di, ax ; DI=显存偏移
+    mov es:[di], al ; 写入颜色值
+    jmp int_end
+
+; 中断结束：恢复寄存器并返回
+int_end:
+    pop bp
+    pop ds
+    pop es
+    pop di
+    pop si
+    pop dx
+    pop cx
+    pop bx
+    pop ax
+    iret ; 中断返回
+video_int endp
+
+; 安装自定义中断向量（替换int 10h）
+install proc
+    cli ; 关中断，防止安装过程被打断
+    mov ax, 0
+    mov es, ax ; ES指向中断向量表（0段）
+    mov di, 10*4 ; int 10h的向量地址：10*4=40（0000:0028）
+    mov ax, offset video_int ; 中断服务程序偏移地址
+    stosw ; 写入偏移量到向量表
+    mov ax, cs ; 中断服务程序段地址（当前代码段）
+    stosw ; 写入段地址到向量表
+    sti ; 开中断
+    ret
+install endp
+
+; 主程序：初始化并测试自定义中断
+main:
+    mov ax, data
+    mov ds, ax ; 初始化数据段
+
+    call install ; 安装自定义屏幕输出中断
+
+    ; 测试1：设置文本模式（00h）
+    mov ah, 00h
+    mov al, 00h
+    int 10h ; 调用自定义中断
+
+    ; 测试2：显示字符"Hello, World!"（文本模式）
+    mov ah, 09h
+    mov al, 'H'
+    mov bl, 07h ; 属性：黑底白字
+    mov cx, 1
+    int 10h
+    ; 此处可继续添加其他字符的显示代码...
+
+    ; 测试3：切换到图形模式（13h）并画点
+    mov ah, 00h
+    mov al, 13h
+    int 10h
+    mov ah, 0Ch
+    mov al, 0Ch ; 颜色：红色
+    mov cx, 100 ; X=100
+    mov dx, 50 ; Y=50
+    int 10h ; 画点
+
+    jmp $ ; 无限循环，保持程序运行
+
+code ends
+
+; 数据段：保存当前模式和光标位置
+data segment
+    current_mode db 0 ; 当前显示模式（0=文本，13h=图形）
+    cursor_row db 0 ; 当前光标行号
+    cursor_col db 0 ; 当前光标列号
+data ends
+
+    end main</code></pre>
+<h1>代码说明</h1>
+<ol>
+<li>中断功能设计：模拟int 10h的核心功能，包括显示模式设置（文本/图形）、光标控制、文本字符显示和图形像素绘制，覆盖基本屏幕输出需求。  </li>
+<li>文本模式实现：a.显存地址为 0b800h ，每个字符占2字节（低字节为ASCII码，高字节为属性，控制前景/背景色）。b.光标位置通过显卡端口 03d4h 和 03d5h 设置，计算方式为 行号×80 + 列号 （80列文本模式）。  </li>
+<li>图形模式实现：- 320x200 256色模式的显存地址为 0a000h ，每个像素直接对应一个字节（存储颜色值），地址计算为 Y×320 + X 。  </li>
+<li>中断安装：通过修改中断向量表（0段）中int 10h的入口地址，将其指向自定义服务程序，安装时需关中断（ cli ）保证操作原子性。  </li>
+<li>测试逻辑：主程序安装中断后，依次测试文本模式字符显示和图形模式画点功能，验证中断有效性。</li>
+</ol></div><hr class="article-divider"><p class="back-link"><a href="tech.html">&larr; 返回技术分类</a></p></div><div id="comment_list"><h2>评论</h2><p style="color:#999; font-size:13px;">还没有评论。</p></div><div id="comment_submit" style="text-align:center; padding:20px; color:#999; font-size:13px; border-top:1px dashed #CCCCCC;">评论区已关闭（本页为静态备份）</div></div>
+  </div>
+  <div id="footer">
+    Copyright faryou's Blog. Some Rights Reserved | Powered by FYlog
+  </div>
+</div>
+</body>
+</html>
